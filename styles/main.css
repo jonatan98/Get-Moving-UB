@@ -1,0 +1,111 @@
+/* 
+ * Fonts
+ */
+@font-face {font-family: SofiaProBold;src: url('Mostardesign - Sofia Pro Bold.otf');}
+@font-face {font-family: SofiaProBlack;src: url('Mostardesign - Sofia Pro Black.otf');}
+@font-face {font-family: SofiaProMedium;src: url('Mostardesign - Sofia Pro Medium.otf');}
+@font-face {font-family: SofiaProBoldItalic;src: url('Mostardesign - Sofia Pro Bold Italic.otf');}
+
+* {margin: 0; padding: 0; border: 0;}
+
+#wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+#sidebar{
+    background-color: #fff;
+    order: 1;
+    width: 250px;
+    box-shadow: 0px 0px 10px 0px #444;
+    z-index: 2;
+    height: 100vh;
+    top: 0;
+}
+#sidebar img{
+    display: block;
+    width: 200px;
+    margin: 20px;
+    margin-top: 30px;
+}
+
+#sidebar ul{
+    list-style-type: none;
+}
+#sidebar ul li{
+    display: block;
+}
+#sidebar ul li input, #sidebar ul li select, #sidebar ul li a{
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    padding: 7px 5px;
+    margin-bottom: 20px;
+    
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
+    box-sizing:content-box;
+}
+
+#sidebar ul li input{
+    border: 1px solid #9e9e9e;
+    border-radius: 2px;
+}
+
+#sidebar ul li select{
+    border: 1px solid #9e9e9e;
+    border-radius: 2px;
+    text-align: left;
+}
+
+#sidebar ul li a{
+    display: block;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    width: 240px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: background-color 0.1s linear;
+}
+#sidebar ul li a:hover{
+    background-color: #9e9e9e;
+}
+
+#map{
+    order: 2;
+    height: 100vh;
+    flex: 1;
+    z-index: 1;
+}
+
+.bottom{
+    
+}
+.bottom > * {
+    position: absolute;
+    bottom: 0;
+    width: 240px !important;
+}
+
+#toggle_menu{
+    position: absolute;
+    left: 200px;
+    top: 0px;
+    width: 30px;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 4;
+    background-color: #fff;
+    padding: 10px;
+}
+
+#toggle_menu .line{
+    position: relative;
+    width: 30px;
+    height: 3px;
+    background-color: #404040;
+    margin-bottom: 6px;
+}
+#toggle_menu .line:last-of-type{ margin-bottom: 0px; }

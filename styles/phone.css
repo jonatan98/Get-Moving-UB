@@ -1,0 +1,46 @@
+#wrap{
+    display: block;
+}
+
+#sidebar{
+    position: absolute;
+    width: 100vw;
+}
+
+#sidebar img{
+    width: 70%;
+    margin: 20px auto;
+    margin-top: 50px;
+}
+
+#sidebar ul li input, #sidebar ul li select, #sidebar ul li a{
+    width: 80%;
+}
+
+#sidebar ul li a{
+    width: initial;
+}
+
+.bottom > * {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#toggle_menu{
+    left: initial;
+    right: 0px;
+    top: 0px;
+    width: 35px;
+    padding: 20px;
+    border-bottom-left-radius: 15px;
+    /* Remove blue bg on android click */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#toggle_menu .line{
+    width: 35px;
+    height: 4px;
+    margin-bottom: 7px;
+}
+#toggle_menu .line:last-of-type{ margin-bottom: 0px; }
