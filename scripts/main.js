@@ -54,7 +54,6 @@ document.getElementById("toggle_menu").addEventListener('click', function(){
         //Open menu
         this.setAttribute("data-active", "1");
         //Calculate the height of half a crossed bar
-        console.log($(lines[2]).height() + " " + $(lines[2]).offset().top);
         document.getElementById("toggle_menu").style.height = $(lines[2]).height() + $(lines[2]).offset().top - 10 + "px";
         $("#toggle_menu").css(
             {paddingTop: ($(lines[0]).width()/2)*Math.cos(45) + "px"}
