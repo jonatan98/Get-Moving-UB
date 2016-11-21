@@ -26,7 +26,10 @@ var gmIcon = L.icon({
 });
 
 //Display marker
-L.marker(pos, {icon: gmIcon}).addTo(map).bindPopup("Sted 1");
-L.marker([59.943445634283, 10.789679288864138], {icon: gmIcon}).addTo(map).bindPopup("fam Vedals place");
-L.marker([59.944243602294385, 10.793724060058594], {icon: gmIcon}).addTo(map).bindPopup("Julez crib");
-L.marker([59.965346509857575, 10.758377909660341], {icon: gmIcon}).addTo(map).bindPopup("Juanatans place");
+var markers = [
+    L.marker(pos, {icon: gmIcon}).addTo(map).bindPopup("Sted 1"),
+    L.marker([59.943445634283, 10.789679288864138], {icon: gmIcon}).addTo(map).bindPopup("fam Vedals place"),
+    L.marker([59.944243602294385, 10.793724060058594], {icon: gmIcon}).addTo(map).bindPopup("Julez crib"),
+    L.marker([59.965346509857575, 10.758377909660341], {icon: gmIcon}).addTo(map).bindPopup("Juanatans place"),
+    L.marker([59.96549687054325, 10.922014117240906], {icon: gmIcon}).addTo(map).bindPopup("Kellz place")
+];
