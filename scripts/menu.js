@@ -54,6 +54,7 @@ document.getElementById("toggle_menu").addEventListener('click', function(){
         //Open menu
         this.setAttribute("data-active", "1");
         //Calculate the height of half a crossed bar
+        console.log($(lines[2]).height() + " " + $(lines[2]).offset().top);
         document.getElementById("toggle_menu").style.height = $(lines[2]).height() + $(lines[2]).offset().top - 10 + "px";
         $("#toggle_menu").css(
             {paddingTop: ($(lines[0]).width()/2)*Math.cos(45) + "px"}
@@ -83,17 +84,3 @@ document.getElementById("toggle_menu").addEventListener('click', function(){
         }
     }
 });
-
-//Get the user's position
-var x = document.getElementById("demo");
-var pos = [59.929904118285846, 10.754928588867188];
-var zoom = 13;
-
-var map = L.map('map', {zoomControl: false}).setView(pos, zoom);
-L.tileLayer('https://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=norges_grunnkart&zoom={z}&x={x}&y={y}').addTo(map);
-
-//add zoom control with your options
-L.control.zoom({
-     position:'topleft'
-}).addTo(map);
-
