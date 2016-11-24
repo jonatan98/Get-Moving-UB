@@ -7,12 +7,22 @@ var activities = [
     {
         id: 1,
         name: "Basketball",
-        markers: [0, 1, 2]
+        markers: [0, 3]
     },
     {
         id: 2,
         name: "Ishockey",
-        markers: [0,3,4]
+        markers: []
+    },
+    {
+        id: 3,
+        name: "Volleyball",
+        markers: [1]
+    },
+    {
+        id: 4,
+        name: "Fotball",
+        markers: [2]
     }
 ];
 
@@ -24,12 +34,12 @@ var areas = [
     },
     {
         id: 2,
-        name: "Nydalen",
-        markers: [3,4]
+        name: "Grünerløkka",
+        markers: [3]
     },
     {
         id: 3,
-        name: "Sentrum",
+        name: "Voldsløkka",
         markers: [1, 2]
     }
 ];

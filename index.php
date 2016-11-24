@@ -27,12 +27,14 @@
                 <option value="0">Alle aktiviteter</option>
                 <option value="1">Basketball</option>
                 <option value="2">Ishockey</option>
+                <option value="3">Volleyball</option>
+                <option value="4">Fotball</option>
             </select></li>
             <li><select id="area">
                 <option value="0">Alle områder</option>
                 <option value="1">Nordberg</option>
-                <option value="2">Nydalen</option>
-                <option value="3">Sentrum</option>
+                <option value="2">Grünerløkka</option>
+                <option value="3">Voldsløkka</option>
             </select></li>
             <li><a href="#">Min profil</a></li>
             <li class="bottom"><a href="#">Om Oss</a></li></li>
