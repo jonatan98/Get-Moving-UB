@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/phone.css" media="only screen and (max-width: 800px)">
     
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="imgs/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="imgs/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="imgs/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="imgs/favicon/manifest.json">
+    <link rel="mask-icon" href="imgs/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="imgs/favicon/favicon.ico">
+    <meta name="msapplication-config" content="imgs/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
     <!-- leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 	<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
