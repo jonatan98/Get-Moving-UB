@@ -20,6 +20,7 @@
 <div id="wrap">
     <div id="map"></div><div id="sidebar">
         <img src="imgs/Get Moving FB profilbilde - cut 1.png">
+        <div id="phone_menu"></div>
         <ul>
             <li><input type="text" id="search" placeholder="Søk..."></li>
             <li><select id="activity">
@@ -28,17 +29,16 @@
                 <option value="2">Ishockey</option>
             </select></li>
             <li><select id="area">
-                <option>Alle områder</option>
-                <option>Nordberg</option>
-                <option>Nydalen</option>
-                <option>Sentrum</option>
+                <option value="0">Alle områder</option>
+                <option value="1">Nordberg</option>
+                <option value="2">Nydalen</option>
+                <option value="3">Sentrum</option>
             </select></li>
             <li><a href="#">Min profil</a></li>
             <li class="bottom"><a href="#">Om Oss</a></li></li>
         </ul>
     </div>
 </div>
-<div id="toggle_menu" data-active="0"><div class="line"></div><div class="line"></div><div class="line"></div></div>
 
 <script src="scripts/menu.js"></script>
 <script src="scripts/map.js"></script>
