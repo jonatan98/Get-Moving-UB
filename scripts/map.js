@@ -27,9 +27,16 @@ var gmIcon = L.icon({
 
 //Display marker
 var markers = [
-    L.marker(pos, {icon: gmIcon}).addTo(map).bindPopup("Sted 1"),
-    L.marker([59.943445634283, 10.789679288864138], {icon: gmIcon}).addTo(map).bindPopup("fam Vedals place"),
-    L.marker([59.944243602294385, 10.793724060058594], {icon: gmIcon}).addTo(map).bindPopup("Julez crib"),
-    L.marker([59.965346509857575, 10.758377909660341], {icon: gmIcon}).addTo(map).bindPopup("Juanatans place"),
-    L.marker([59.96549687054325, 10.922014117240906], {icon: gmIcon}).addTo(map).bindPopup("Kellz place")
+    L.marker([59.96251369439251, 10.73164701461792], {icon: gmIcon}).addTo(map).bindPopup("Nordberg Skole Basket"),
+    L.marker([59.9438244699759, 10.752203464508058], {icon: gmIcon}).addTo(map).bindPopup("Voldsløkka sandvolleyball"),
+    L.marker([59.94372774638071, 10.750722885131838], {icon: gmIcon}).addTo(map).bindPopup("Voldsløkka kunstgress"),
+    L.marker([59.923224037664475, 10.75514316558838], {icon: gmIcon}).addTo(map).bindPopup("Kubaparken (Grünerløkka)"),
+    L.marker([59.87636118779293, 10.690383911132812], {icon: gmIcon}).addTo(map).bindPopup("Prima badeplass")
 ];
+
+/* Find coordinates on click
+
+map.on('click', function(e) {
+    console.log("[" + e.latlng.lat + ", " + e.latlng.lng + "]")
+});
+*/

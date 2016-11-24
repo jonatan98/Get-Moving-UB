@@ -39,6 +39,7 @@
         </ul>
     </div>
 </div>
+<div id="toggle_menu" data-active="0"><div class="line"></div><div class="line"></div><div class="line"></div></div>
 
 <script src="scripts/menu.js"></script>
 <script src="scripts/map.js"></script>
