@@ -9,19 +9,70 @@ h1, h2, h3{
 }
 
 #wrap{
-    display: flex;
-    flex-direction: row;
+    
 }
 
-#sidebar{
-    background-color: #fff;
-    order: 1;
-    width: 250px;
-    box-shadow: 0px 0px 10px 0px #444;
-    z-index: 2;
-    height: 100vh;
-    top: 0;
+/* Header */
+#head{
+    position: relative;
+    display: block;
+    height: 80px;
+    box-shadow: 0px 0px 2px 0px #999;
+    z-index: 3;
 }
+
+#head img{
+    height: 80px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#head ul{
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+    padding-right: 20px;
+}
+
+#head ul li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+#head ul li a{
+    display: block;
+    line-height: 80px;
+}
+
+/* Sidebar */
+
+#sidebar{
+    position: absolute;
+    background-color: #fff;
+    width: 250px;
+    height: calc(100vh - 80px);
+    top: 0;
+    margin-top: 80px;
+    z-index: 2;
+    left: -210px;
+    transition: left 0.2s linear;
+    box-shadow: 0 0 5px #444;
+}
+#sidebar:hover{
+    left: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+#sidebar h2{
+    text-align: left;
+    padding: 10px 19px;
+    line-height: 34px;
+}
+#sidebar h2 i{
+    float: right;
+    line-height: 34px;
+}
+
 #sidebar img{
     display: block;
     width: 200px;
@@ -74,44 +125,23 @@ h1, h2, h3{
 }
 
 #content{
-    order: 2;
-    flex: 1;
+    display: block;
+    position: relative;
 }
+
+/* General content */
+
+#content.text{
+    margin: 0 auto;
+    width: 70%;
+}
+
+/* Map */
 
 #map{
-    height: 100vh;
+    height: calc(100vh - 80px);
     z-index: 1;
 }
-
-.bottom{
-    
-}
-.bottom > * {
-    position: absolute;
-    bottom: 0;
-    width: 240px !important;
-}
-
-#toggle_menu{
-    position: absolute;
-    left: 200px;
-    top: 0px;
-    width: 30px;
-    display: inline-block;
-    cursor: pointer;
-    z-index: 4;
-    background-color: #fff;
-    padding: 10px;
-}
-
-#toggle_menu .line{
-    position: relative;
-    width: 30px;
-    height: 3px;
-    background-color: #404040;
-    margin-bottom: 6px;
-}
-#toggle_menu .line:last-of-type{ margin-bottom: 0px; }
 
 /* About us */
 
@@ -133,6 +163,8 @@ h1, h2, h3{
     text-align: center;
     vertical-align: top;
 }
+#content.about #employees .employee:first-of-type{padding-left: 0;}
+#content.about #employees .employee:last-of-type{padding-right: 0;}
 
 #content.about #employees .employee img{
     display: block;

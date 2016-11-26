@@ -1,6 +1,8 @@
-<div id="sidebar">
-    <img src="%static_url%imgs/Get Moving FB profilbilde - cut 1.png">
-    <div id="phone_menu"></div>
+<div id="content">
+    <div id="map"></div>
+</div>
+<div id="sidebar" style="left: 0;">
+    <h2>Filter <i class="fa fa-filter"></i></h2>
     <ul>
         <li><input type="text" id="search" placeholder="Søk..."></li>
         <li><select id="activity">
@@ -16,11 +18,12 @@
             <option value="2">Grünerløkka</option>
             <option value="3">Voldsløkka</option>
         </select></li>
-        <li><a href="#">Min profil</a></li>
-        <li class="bottom"><a href="/%pname_about%.html">Om Oss</a></li></li>
     </ul>
 </div>
-<div id="content">
-    <div id="map"></div>
-    <div id="toggle_menu" data-active="0"><div class="line"></div><div class="line"></div><div class="line"></div></div>
-</div>
+<script>
+
+setTimeout(function(){
+    document.getElementById("sidebar").removeAttribute("style");
+}, 5000);
+
+</script>
