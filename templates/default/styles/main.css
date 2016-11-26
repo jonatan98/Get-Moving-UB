@@ -42,6 +42,12 @@ h1, h2, h3{
 #head ul li a{
     display: block;
     line-height: 80px;
+    color: #0645AD;
+    color: #000000;
+    text-decoration: none;
+}
+#head ul li a:hover{
+    text-decoration: underline;
 }
 
 /* Sidebar */
