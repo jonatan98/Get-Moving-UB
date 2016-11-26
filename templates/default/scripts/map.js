@@ -15,7 +15,7 @@ L.control.zoom({
 
 //Init custom marker
 var gmIcon = L.icon({
-    iconUrl: 'imgs/Get Moving pin v2.png',
+    iconUrl: static_url + 'imgs/Get Moving pin v2.png',
     //shadowUrl: 'leaf-shadow.png',
 
     iconSize:     [25, 40], // size of the icon

@@ -1,12 +1,12 @@
-/* 
- * Fonts
- */
-@font-face {font-family: SofiaProBold;src: url('Mostardesign - Sofia Pro Bold.otf');}
-@font-face {font-family: SofiaProBlack;src: url('Mostardesign - Sofia Pro Black.otf');}
-@font-face {font-family: SofiaProMedium;src: url('Mostardesign - Sofia Pro Medium.otf');}
-@font-face {font-family: SofiaProBoldItalic;src: url('Mostardesign - Sofia Pro Bold Italic.otf');}
-
 * {margin: 0; padding: 0; border: 0;}
+
+body{
+    font-family: SofiaProMedium;
+}
+
+h1, h2, h3{
+    font-family: SofiaProBold;
+}
 
 #wrap{
     display: flex;
@@ -73,10 +73,13 @@
     background-color: #9e9e9e;
 }
 
-#map{
+#content{
     order: 2;
-    height: 100vh;
     flex: 1;
+}
+
+#map{
+    height: 100vh;
     z-index: 1;
 }
 
@@ -109,3 +112,41 @@
     margin-bottom: 6px;
 }
 #toggle_menu .line:last-of-type{ margin-bottom: 0px; }
+
+/* About us */
+
+#content.about{
+    padding: 10px;
+}
+
+#content.about #employees{
+    margin-top: 1em;
+}
+
+#content.about #employees h2{
+    margin-bottom: 5px;
+}
+
+#content.about #employees .employee{
+    display: inline-block;
+    padding: 0 15px;
+    text-align: center;
+    vertical-align: top;
+}
+
+#content.about #employees .employee img{
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+}
+
+#content.about #employees .employee h2{
+    
+}
+#content.about #employees .employee h3{
+    line-height: 20px;
+}
+
+#content.about #employees .employee #role{
+    margin-top: 8px;
+}
