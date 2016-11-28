@@ -110,6 +110,17 @@
     margin-right: auto;
 }
 
+#content.login .email .login{
+    display: block;
+    width: initial;
+}
+
+
+#content.login .email .register{
+    display: block;
+    width: initial;
+}
+
 /* Remove blue background on click */
 /*IE9*/
 *::selection 
