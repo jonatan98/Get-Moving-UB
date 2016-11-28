@@ -13,6 +13,7 @@ h1, h2, h3{
 }
 
 /* Header */
+
 #head{
     position: relative;
     display: block;
@@ -188,3 +189,67 @@ h1, h2, h3{
 #content.about #employees .employee #role{
     margin-top: 8px;
 }
+
+/* Login */
+
+#content.login .fb-login{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: center;
+    padding-top: 30px;
+}
+
+#content.login .fb-login-button{
+    display: inline-block;
+    text-decoration: none;
+    padding: 4px;
+    padding-right: 7px;
+    margin-top: 20px;
+    margin-bottom: 14px;
+    background-color: #3b5998;
+    border-radius: 3px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 16px;
+}
+
+#content.login .fb-login-button svg{
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+#content.login .fb-login-button span{
+    padding-left: 5px;
+    color: #ffffff;
+    vertical-align: top;
+}
+
+#content.login .email{
+    width: 50%;
+    display: inline-block;
+}
+
+#content.login .email p{
+    display: block;
+    margin-bottom: 10px;
+}
+
+#content.login .email input{
+    display: block;
+    padding: 4px;
+    border: 1px solid #989898;
+    margin-bottom: 5px;
+}
+
+#content.login .email button{
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+#content.login .email .login{}
+
+
+#content.login .email .register{}
