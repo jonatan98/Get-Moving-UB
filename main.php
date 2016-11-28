@@ -1,4 +1,9 @@
 <?php
+//Hack to logout
+if(isset($_GET['logout'])){
+    unset($_SESSION['userID']);
+}
+
 /*
  * Fetch user info if logged in
  */
