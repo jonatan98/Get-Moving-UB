@@ -47,12 +47,12 @@ var areas = [
 //Add classes to the markers
 for(var i = 0; i < activities.length; i++){
     for(var x = 0; x < activities[i].markers.length; x++){
-        console.log(markers[activities[i].markers[x]]._icon.className += " activity-" + activities[i].id);
+        //console.log(markers[activities[i].markers[x]]._icon.className += " activity-" + activities[i].id);
     }
 }
 for(var i = 0; i < areas.length; i++){
     for(var x = 0; x < areas[i].markers.length; x++){
-        console.log(markers[areas[i].markers[x]]._icon.className += " area-" + areas[i].id);
+        //console.log(markers[areas[i].markers[x]]._icon.className += " area-" + areas[i].id);
     }
 }
 
