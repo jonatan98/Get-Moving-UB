@@ -51,6 +51,10 @@ h1, h2, h3{
     text-decoration: underline;
 }
 
+#head ul li a i{
+    margin-right: 3px;
+}
+
 /* Sidebar */
 
 #sidebar{
@@ -136,18 +140,18 @@ h1, h2, h3{
     position: relative;
 }
 
-/* General content */
-
-#content.text{
-    margin: 0 auto;
-    width: 70%;
-}
-
 /* Map */
 
 #map{
     height: calc(100vh - 80px);
     z-index: 1;
+}
+
+/* General content */
+
+#content.text{
+    margin: 0 auto;
+    width: 70%;
 }
 
 /* About us */
@@ -179,11 +183,11 @@ h1, h2, h3{
     margin: 0 auto;
 }
 
-#content.about #employees .employee h2{
-    
-}
 #content.about #employees .employee h3{
     line-height: 20px;
+}
+#content.about #employees .employee h2{
+    
 }
 
 #content.about #employees .employee #role{
