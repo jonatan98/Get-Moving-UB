@@ -194,6 +194,10 @@ h1, h2, h3{
     margin-top: 8px;
 }
 
+#content.about .madeby{
+    margin-top: 40px;
+}
+
 /* Login */
 
 #content.login .fb-login{
