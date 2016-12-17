@@ -2,7 +2,7 @@
 /*
  * Script to filter the pins
  */
-
+/*
 var activities = [
     {
         id: 1,
@@ -127,4 +127,4 @@ function update_filter(){
         $(".leaflet-marker-icon" + act + are).show();
     }
     
-}
+}*/

@@ -20,8 +20,22 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
 }
  
 switch($page['type']){
-    case "start":
+    case "map":
         //Code for the start page
+        $variables['locations'] = array();
+        $stmt = $db->query("SELECT * FROM `".$tbl['getmoving_location']."`");
+        $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($locations as $location){
+            $variables['locations'][] = array(
+                'location_lat' => $location['lat'],
+                'location_lng' => $location['lng'],
+                'location_type' => $location['icon_type'],
+                'location_name' => $location['name'],
+                'location_description' => $location['description'],
+                'location_separator' => ','
+            );
+        }
+        $variables['locations'][count($variables['locations']) - 1]['location_separator'] = '';
         
         break;
     case "login":

@@ -138,6 +138,7 @@ h1, h2, h3{
 #content{
     display: block;
     position: relative;
+    margin-left: 40px;
 }
 
 /* Map */
