@@ -61,7 +61,7 @@ switch($page['type']){
         $variables['locations'][count($variables['locations']) - 1]['location_separator'] = '';
         //Get all areas
         $variables['areas'] = array();
-        $stmt = $db->query("SELECT areaID, name FROM `".$tbl['getmoving_area']."`");
+        $stmt = $db->query("SELECT areaID, name FROM `".$tbl['getmoving_area']."` ORDER BY name ASC");
         $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($areas as $area){
             $variables['areas'][] = array(
@@ -71,7 +71,7 @@ switch($page['type']){
         }
         //Get all sports
         $variables['activities'] = array();
-        $stmt = $db->query("SELECT activityID, name FROM `".$tbl['getmoving_activity']."`");
+        $stmt = $db->query("SELECT activityID, name FROM `".$tbl['getmoving_activity']."` ORDER BY name ASC");
         $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($activities as $activity){
             $variables['activities'][] = array(
