@@ -12,8 +12,10 @@ function initMap() {
     
     //Load markers
     for(var i = 0; i < markers.length; i++){
-        addMarker(markers[i]);
+        addMarker(i, markers[i]);
     }
+    
+    
           
     /*var marker = new google.maps.Marker({
         position: center,
@@ -25,31 +27,28 @@ function initMap() {
         labelStyle: {opacity: 0.75}
     });*/
     
-    google.maps.event.addListener(map, 'click', function( event ){
+    /*google.maps.event.addListener(map, 'click', function( event ){
         console.log( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
-    });
+    });*/
 }
 
 /*
  * Center the map around the user
  */
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-            //position.coords.latitude
-            //position.coords.longitude
-            if(map == null){
-                center = {lat: position.coords.latitude, lng: position.coords.longitude}
-            }else{
-                map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-            }
-        });
-    } else {
-        // = "Geolocation is not supported by this browser.";
-    }
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+        //position.coords.latitude
+        //position.coords.longitude
+        if(map == null){
+            center = {lat: position.coords.latitude, lng: position.coords.longitude}
+        }else{
+            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+        }
+    });
+} else {
+    // = "Geolocation is not supported by this browser.";
 }
-getLocation();
 
 /*
  * Map markers
@@ -60,17 +59,9 @@ var icons = {
     normal: iconBase + 'pin v2.min.png'
 };
 
-/*var markers = [
-    {
-        position: [59.96251369439251, 10.73164701461792],
-        type: 'normal',
-        info: 'Nordberg Skole Basket'
-    }
-];*/
-
 var infoWindows = [];
 
-function addMarker(markerData){
+function addMarker(markerIndex, markerData){
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(markerData.position[0], markerData.position[1]),
         icon: new google.maps.MarkerImage(
@@ -94,6 +85,7 @@ function addMarker(markerData){
         }
         infoWindow.open(map, marker);
     });
+    markers[markerIndex].marker = marker;
 }
 
 /*

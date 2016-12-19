@@ -21,22 +21,64 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
  
 switch($page['type']){
     case "map":
-        //Code for the start page
+        //Get all locations
         $variables['locations'] = array();
-        $stmt = $db->query("SELECT * FROM `".$tbl['getmoving_location']."`");
+        $stmt = $db->query("SELECT locationID, lat, lng, name, description, icon_type FROM `".$tbl['getmoving_location']."`");
         $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($locations as $location){
+            //Get the areas of the location
+            $areas = array();
+            $stmt = $db->prepare("SELECT a.areaID FROM `".$tbl['getmoving_location_area']."` AS la
+                INNER JOIN `".$tbl['getmoving_area']."` AS a ON la.areaID = a.areaID
+                WHERE la.locationID = :locationID");
+            $stmt->execute(array(
+                'locationID' => $location['locationID']
+            ));
+            $_areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach($_areas as $a){ $areas[] = $a['areaID']; }
+            //Get the sports of the locations
+            $activities = array();
+            $stmt = $db->prepare("SELECT a.activityID FROM `".$tbl['getmoving_location_activity']."` AS la
+                INNER JOIN `".$tbl['getmoving_activity']."` AS a ON la.activityID = a.activityID
+                WHERE la.locationID = :locationID");
+            $stmt->execute(array(
+                'locationID' => $location['locationID']
+            ));
+            $_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach($_activities as $a){ $activities[] = $a['activityID']; }
+            
             $variables['locations'][] = array(
                 'location_lat' => $location['lat'],
                 'location_lng' => $location['lng'],
                 'location_type' => $location['icon_type'],
-                'location_name' => $location['name'],
+                'location_name' => $location['locationID'].' '.$location['name'],
                 'location_description' => $location['description'],
+                'location_areas' => implode(', ', $areas),
+                'location_activities' => implode(', ', $activities),
                 'location_separator' => ','
             );
         }
         $variables['locations'][count($variables['locations']) - 1]['location_separator'] = '';
-        
+        //Get all areas
+        $variables['areas'] = array();
+        $stmt = $db->query("SELECT areaID, name FROM `".$tbl['getmoving_area']."`");
+        $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($areas as $area){
+            $variables['areas'][] = array(
+                'area_id' => $area['areaID'],
+                'area_name' => $area['name']
+            );
+        }
+        //Get all sports
+        $variables['activities'] = array();
+        $stmt = $db->query("SELECT activityID, name FROM `".$tbl['getmoving_activity']."`");
+        $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach($activities as $activity){
+            $variables['activities'][] = array(
+                'activity_id' => $activity['activityID'],
+                'activity_name' => $activity['name']
+            );
+        }
         break;
     case "login":
         //Redirect user to map page if already logged in

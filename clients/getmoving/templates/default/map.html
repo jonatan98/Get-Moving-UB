@@ -7,16 +7,11 @@
         <li><input type="text" id="search" placeholder="Søk..." disabled></li>
         <li><select id="activity">
             <option value="0">Alle aktiviteter</option>
-            <option value="1">Basketball</option>
-            <option value="2">Ishockey</option>
-            <option value="3">Volleyball</option>
-            <option value="4">Fotball</option>
+            <!-- for %activities% --><option value="%activity_id%">%activity_name%</option><!-- endfor -->
         </select></li>
         <li><select id="area">
             <option value="0">Alle områder</option>
-            <option value="1">Nordberg</option>
-            <option value="2">Grünerløkka</option>
-            <option value="3">Voldsløkka</option>
+            <!-- for %areas% --><option value="%area_id%">%area_name%</option><!-- endfor -->
         </select></li>
     </ul>
     <h2>Innstillinger</h2>
@@ -38,7 +33,9 @@ setTimeout(function(){
 
 </script>
 <script>var static_url = '%static_url%'; var coordinates = '59.929904118285846,10.754928588867188';</script>
-<script>var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',info: '<h2>%location_name%</h2>'}%location_separator%<!-- endfor -->];</script>
+<script>
+    var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',info: '<h2>%location_name%</h2>', marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
+</script>
 <script src="%template_url%scripts/map.js"></script>
 <script src="%template_url%scripts/filter.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsg64wU0YFosLDXIGRlI5TgTw3sCl1tqE&amp;callback=initMap" async="" defer=""></script>
