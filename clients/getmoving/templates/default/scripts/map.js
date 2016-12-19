@@ -1,9 +1,11 @@
 
 var map;
 var center = {lat: Number(coordinates.split(',')[0].trim()), lng: Number(coordinates.split(',')[1].trim())};
+var zoom = 14;
+
 function initMap() {
     var mapOptions = {
-      zoom: 14,
+      zoom: zoom,
       center: center,
       mapTypeId: 'hybrid'
     };
@@ -40,10 +42,13 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
         //position.coords.latitude
         //position.coords.longitude
+        console.log(position.coords.latitude + " " + position.coords.longitude);
         if(map == null){
-            center = {lat: position.coords.latitude, lng: position.coords.longitude}
+            center = {lat: position.coords.latitude, lng: position.coords.longitude};
+            zoom = 15;
         }else{
             map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+            map.setZoom(15);
         }
     });
 } else {
