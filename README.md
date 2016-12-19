@@ -1,4 +1,4 @@
 #Get Moving
 Development stage: beta
 
-Available demo: [getmoving.norbye.com](http://getmoving.norbye.com)
+Available demo: [get-moving.no](http://get-moving.no)
