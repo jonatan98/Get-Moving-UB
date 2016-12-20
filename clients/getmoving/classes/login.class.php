@@ -14,7 +14,7 @@ class GM_Login{
         $code = $_GET['code'];
         $app_id = "553540261437395";
         $app_secret = "c1773e735cf65bcf837b0286267744bd";
-        $my_url = "http://getmoving.norbye.com/?pid=".get_pid($this->db, $this->tbl, "handle_login");
+        $my_url = "https://get-moving.no/?pid=".get_pid($this->db, $this->tbl, "handle_login");
         
         //Redirect if the code is not sent
         if(empty($code)) {
