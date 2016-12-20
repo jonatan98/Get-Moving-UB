@@ -42,7 +42,6 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
         //position.coords.latitude
         //position.coords.longitude
-        console.log(position.coords.latitude + " " + position.coords.longitude);
         if(map == null){
             center = {lat: position.coords.latitude, lng: position.coords.longitude};
             zoom = 15;
