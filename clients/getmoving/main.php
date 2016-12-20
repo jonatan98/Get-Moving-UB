@@ -51,7 +51,7 @@ switch($page['type']){
                 'location_lat' => $location['lat'],
                 'location_lng' => $location['lng'],
                 'location_type' => $location['icon_type'],
-                'location_name' => $location['locationID'].' '.$location['name'],
+                'location_name' => $location['name'],
                 'location_description' => $location['description'],
                 'location_areas' => implode(', ', $areas),
                 'location_activities' => implode(', ', $activities),
@@ -100,7 +100,7 @@ switch($page['type']){
         }else if(isset($_POST['password2'])){
             
         }
-        
+                
         if($success){
             $url = "/".get_pname($db, $tbl, "map").".html";
         }else{
