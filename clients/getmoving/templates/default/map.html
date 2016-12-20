@@ -34,7 +34,7 @@ setTimeout(function(){
 </script>
 <script>var static_url = '%static_url%'; var coordinates = '59.929904118285846,10.754928588867188';</script>
 <script>
-    var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',info: '<h2>%location_name%</h2>', marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
+    var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',name: '%location_name%', description: '%location_description%', active_users: '3', marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
 </script>
 <script src="%template_url%scripts/map.js"></script>
 <script src="%template_url%scripts/filter.js"></script>

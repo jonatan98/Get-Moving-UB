@@ -80,7 +80,10 @@ function addMarker(markerIndex, markerData){
     });
     
     var infoWindow = new google.maps.InfoWindow({
-          content: markerData.info
+          content: '<h3>' + markerData.name + '</h3>' +
+                   '<p>' + markerData.description + '</p>' +
+                   '<p>' + markerData.active_users + ' aktive brukere</p>' +
+                   '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>'
     });
     infoWindows[infoWindows.length] = infoWindow;
     
