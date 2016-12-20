@@ -87,12 +87,27 @@ function addMarker(markerIndex, markerData){
     });
     infoWindows[infoWindows.length] = infoWindow;
     
+    //Display marker on click
     marker.addListener("click", function(){
         for(var x = 0; x < infoWindows.length; x++){
             infoWindows[x].close();
         }
         infoWindow.open(map, marker);
     });
+    
+    //Display marker on hover
+    marker.addListener('mouseover', function() {
+        for(var x = 0; x < infoWindows.length; x++){
+            infoWindows[x].close();
+        }
+        infoWindow.open(map, this);
+    });
+
+    /*marker.addListener('mouseout', function() {
+        infoWindow.close();
+    });*/
+    
+    //Store marker data
     markers[markerIndex].marker = marker;
 }
 
