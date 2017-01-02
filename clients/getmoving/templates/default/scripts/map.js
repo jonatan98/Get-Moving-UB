@@ -88,17 +88,25 @@ function addMarker(markerIndex, markerData){
     
     //Display marker on click
     marker.addListener("click", function(){
+        //Hide all other infoWindows
         for(var x = 0; x < infoWindows.length; x++){
             infoWindows[x].close();
         }
+        //Display this infoWindow
         infoWindow.open(map, marker);
     });
     
     //Display marker on hover
     marker.addListener('mouseover', function() {
+        //Do not display infoWindow on hover if the map is too zoomed out
+        if(map.getZoom() < 15){
+            return;
+        }
+        //Hide all other infoWindows
         for(var x = 0; x < infoWindows.length; x++){
             infoWindows[x].close();
         }
+        //Display this infoWindow
         infoWindow.open(map, this);
     });
 
