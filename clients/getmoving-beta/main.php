@@ -7,8 +7,9 @@ if(isset($_GET['logout'])){
 /*
  * Fetch user info if logged in
  */
+$vars['user_userID'] = 0; $vars['user_name'] = ''; $vars['user_username'] = '';
 if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
-    $stmt = $db->prepare("SELECT * FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
+    $stmt = $db->prepare("SELECT userID, username, name, email FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
     $stmt->execute(array(
         'userID' => $_SESSION['userID']
     ));
@@ -47,6 +48,10 @@ switch($page['type']){
             $_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
+            //Get all the active users
+            $active_users = '[]';
+            
+            
             $variables['locations'][] = array(
                 'location_lat' => $location['lat'],
                 'location_lng' => $location['lng'],
@@ -55,6 +60,7 @@ switch($page['type']){
                 'location_description' => $location['description'],
                 'location_areas' => implode(', ', $areas),
                 'location_activities' => implode(', ', $activities),
+                'location_users' => $active_users,
                 'location_separator' => ','
             );
         }
@@ -79,6 +85,9 @@ switch($page['type']){
                 'activity_name' => $activity['name']
             );
         }
+        break;
+    case "handle_active_user":
+        
         break;
     case "login":
         //Redirect user to map page if already logged in

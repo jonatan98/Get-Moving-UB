@@ -25,8 +25,49 @@
         </select></li>
     </ul>
 </div>
-<script>
 
+<!-- Forms -->
+<div id="form_cover" onclick="hide_form_cover()" style="display: none;"></div>
+<div id="form_willbehere" style="display: none;" class="popup_form">
+    <form action="/%pname_handle_active_user%.html" method="POST">
+        <input type="hidden" name="type" value="willbehere" />
+        <input type="hidden" name="markerID" value="0" class="markerID" />
+        <div>
+            <h3>Ankomsttidspunkt</h3>
+            <div><input type="radio" name="arrival" value="15" id="a15" /><label for="a15">Om 15 minutter</label></div>
+            <div><input type="radio" name="arrival" value="30" id="a30" /><label for="a30">Om 30 minutter</label></div>
+            <div><input type="radio" name="arrival" value="45" id="a45" /><label for="a45">Om 45 minutter</label></div>
+            <div><input type="radio" name="arrival" value="60" id="a60" /><label for="a60">Om 1 time</label></div>
+            <div><input type="radio" name="arrival" value="90" id="a90" /><label for="a90">Om 1 time og 30 min</label></div>
+            <div><input type="radio" name="arrival" value="time" id="at" selected="selected" /><label for="at">Velg tidspunkt</label><br><input type="time" name="arrival_time" class="arrival_time" value="" /></div>
+        </div><div>
+            <h3>Lengde på opphold</h3>
+            <div><input type="radio" name="leave" value="15" id="l15" /><label for="l15">15 minutter</label></div>
+            <div><input type="radio" name="leave" value="30" id="l30" /><label for="l30">30 minutter</label></div>
+            <div><input type="radio" name="leave" value="45" id="l45" /><label for="l45">45 minutter</label></div>
+            <div><input type="radio" name="leave" value="60" id="l60" /><label for="l60">1 time</label></div>
+            <div><input type="radio" name="leave" value="90" id="l90" /><label for="l90">1 time og 30 min</label></div>
+            <div><input type="radio" name="leave" value="time" id="lt" selected="selected" /><label for="lt">Velg tidspunkt å dra</label><br><input type="time" name="leave_time" class="leave_time" value="" /></div>
+        </div>
+    </form>
+</div>
+<div id="form_ishere" style="display: none;" class="popup_form">
+    <form action="/%pname_handle_active_user%.html" method="POST">
+        <input type="hidden" name="type" value="ishere" />
+        <input type="hidden" name="markerID" value="0" class="markerID" />
+        <div>
+            <h3>Lengde på opphold</h3>
+            <div><input type="radio" name="leave" value="15" id="l15" /><label for="l15">15 minutter</label></div>
+            <div><input type="radio" name="leave" value="30" id="l30" /><label for="l30">30 minutter</label></div>
+            <div><input type="radio" name="leave" value="45" id="l45" /><label for="l45">45 minutter</label></div>
+            <div><input type="radio" name="leave" value="60" id="l60" /><label for="l60">1 time</label></div>
+            <div><input type="radio" name="leave" value="90" id="l90" /><label for="l90">1 time og 30 min</label></div>
+            <div><input type="radio" name="leave" value="time" id="lt" selected="selected" /><label for="lt">Velg tidspunkt å dra</label></br><input type="time" name="leave_time" class="leave_time" value="" /></div>
+        </div>
+    </form>
+</div>
+
+<script>
 setTimeout(function(){
     document.getElementById("sidebar").removeAttribute("style");
 }, 5000);
@@ -34,8 +75,14 @@ setTimeout(function(){
 </script>
 <script>var static_url = '%static_url%'; var coordinates = '59.929904118285846,10.754928588867188';</script>
 <script>
-    var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',name: '%location_name%', description: '%location_description%', active_users: '3', marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
+    var markers = [<!-- for %locations% -->{position: [%location_lat%, %location_lng%],type: '%location_type%',name: '%location_name%', description: '%location_description%', active_users: %location_users%, marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
+    var user = {
+        id: %user_userID%,
+        name: '%user_name%',
+        username: '%user_username%'
+    };
 </script>
+<script src="%template_url%scripts/active_user_form.js"></script>
 <script src="%template_url%scripts/map.js"></script>
 <script src="%template_url%scripts/filter.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsg64wU0YFosLDXIGRlI5TgTw3sCl1tqE&amp;callback=initMap" async="" defer=""></script>
