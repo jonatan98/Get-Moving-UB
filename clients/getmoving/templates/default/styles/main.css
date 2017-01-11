@@ -1,1 +1,167 @@
 * {margin: 0; padding: 0;}
+
+/* General rules */
+
+body{
+    font-family: Verdana;
+}
+
+#menu, #content .section > div{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/*
+ * Menu
+*/
+
+#menu_wrap{
+    
+}
+
+#menu{
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#menu img{
+    display: inline-block;
+    height: 80px;
+    margin-top: 10px;
+}
+
+#menu ul{
+    display: inline-block;
+    flex-grow: 1;
+    text-align: right;
+}
+
+#menu ul li{
+    display: inline-block;
+    line-height: 100px;
+}
+
+#menu ul li a{
+    display: block;
+    font-size: 20px;
+    margin: 0 30px;
+    text-decoration: none;
+    color: #000;
+}
+
+/*
+ * Content
+*/
+
+#content{
+    
+}
+
+#content .section{
+    padding-top: 4em;
+    padding-bottom: 4em;
+}
+
+#content .section h1{
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+#content .section p{
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+
+#content .section .split{
+    display: inline-block;
+    vertical-align: top;
+}
+#content .section .split.percent40{ width: 40%; }
+#content .section .split.percent50{ width: 50%; }
+#content .section .split.percent60{ width: 60%; }
+
+/* Slides */
+
+div#slides{
+    background-color: #105f6a;
+    text-align: center;
+}
+
+#slides h2{
+    font-size: 40px;
+    margin-bottom: 1em;
+}
+
+#slides p{
+    
+}
+
+#slides #buttons{
+    margin-top: 5em;
+}
+
+#slides #buttons .button{
+    color: #fff;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 2px solid #db3340;
+    display: inline-block;
+    margin-right: 20px;
+}
+#slides #buttons .button:last-of-type{
+    margin-right: 0;
+}
+
+#slides #buttons .button.red-bg{
+    background-color: #ff6364;
+    border-color: #7b7a7a;
+}
+
+/* Demo */
+
+#beta{
+    
+}
+
+/* Countdown */
+
+#countdown{
+    
+}
+
+#countdown h3{
+    text-align: center;
+}
+
+#countdown table, #countdown table thead, #countdown table tbody{
+    width: 100%;
+}
+
+#countdown th{
+    padding: 10px 0;
+}
+
+#countdown td{
+    width: 20%;
+    padding-bottom: 20px;
+    vertical-align: center;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* Ease of use */
+
+#ease-of-use img{
+    display: block;
+    width: 90%;
+}
+
+/* About */
+
+
+
+
+
