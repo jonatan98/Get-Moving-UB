@@ -85,6 +85,9 @@ switch($page['type']){
         if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
             header("Location: /".get_pname($db, $tbl, "map").".html");
         }
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'].'/';
+        $vars['base_url'] = $protocol.$domainName;
         break;
     case "handle_login":
         //print_r($_REQUEST);
