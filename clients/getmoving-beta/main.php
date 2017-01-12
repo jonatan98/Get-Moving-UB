@@ -87,7 +87,60 @@ switch($page['type']){
         }
         break;
     case "handle_active_user":
+        //Lagre data fra bruker
+        print_r($_POST);
+        if(!isset($_POST['type']) || ($_POST['type'] != 'willbehere' && $_POST['type'] != 'ishere')){
+            die("Wat");
+        }
+        $ishere = false;
+        if($_POST['type'] == 'ishere'){ $ishere = true; }
         
+        $allowed_time_shortcuts = array_map(function($piece){
+            return (string) $piece;
+        }, array("15", "30", "60", "90", "120"));
+        
+        //Get the start time
+        $start = new DateTime();
+        if(!$ishere){
+            if(in_array($_POST['arrival'], $allowed_time_shortcuts)){
+                //Calculate x mins from now
+                $start->add(new DateInterval('PT' . $_POST['arrival'] . 'M'));
+            }else if($_POST['arrival'] == "time" && preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $_POST['arrival_time'])){
+                $lt = explode(':', $_POST['arrival_time']);
+                $start->setTime(intval($lt[0]), intval($lt[1]));
+            }else{
+                //Invalid start time
+                echo "Invalid start time<br>";
+            }
+        }
+        
+        //Get the duration of stay
+        $stop = $start;
+        if(in_array($_POST['leave'], $allowed_time_shortcuts)){
+            //Calculate x mins from now
+            $stop->add(new DateInterval('PT' . $_POST['leave'] . 'M'));
+        }else if($_POST['arrival'] == "time" && preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $_POST['arrival_time'])){
+            $lt = explode(':', $_POST['leave_time']);
+            $stop->setTime(intval($lt[0]), intval($lt[1]));
+        }else{
+            //Invalid start time
+            echo "Invalid start time<br>";
+        }
+        
+        $stmt = $db->prepare("INSERT INTO `".$tbl['getmoving_user_location']."` (userID, locationID, start, stop, registered) VALUES (:uid, :lid, :start, :stop, :registered)");
+        $res = $stmt->execute(array(
+            'uid' => 1,
+            'lid' => 2,
+            'start' => ($start->format("Y-m-d H:m:s")),
+            'stop' => ($stop->format("Y-m-d H:m:s")),
+            'registered' => (new DateTime())->format("Y-m-d H:m:s")
+        ));
+        if($res){
+            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+        }else{
+            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+        }
+        die();
         break;
     case "login":
         //Redirect user to map page if already logged in
