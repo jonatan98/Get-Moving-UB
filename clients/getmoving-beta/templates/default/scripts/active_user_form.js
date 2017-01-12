@@ -13,7 +13,7 @@ function form_ishere(markerIndex){
     
     var now = new Date();
     var sooner = new Date(now.setHours((now).getHours()+2));
-    var lt = div.getElementsByClassName("leave_time")[0].value = sooner.getHours() + ":" + sooner.getMinutes();
+    var lt = div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
     
     div.style.display = "block";
 }
@@ -25,11 +25,15 @@ function form_willbehere(markerIndex){
     var div = document.getElementById("form_willbehere");
     
     var now = new Date();
-    var at = div.getElementsByClassName("arrival_time")[0].value = now.getHours() + ":" + now.getMinutes();
+    var at = div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());
     var sooner = new Date(now.setHours((now).getHours()+2));
-    var lt = div.getElementsByClassName("leave_time")[0].value = sooner.getHours() + ":" + sooner.getMinutes();
+    var lt = div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
     
     div.style.display = "block";
+}
+
+function pad(n){
+    return (n < 10) ? ("0" + n) : n;
 }
 
 function hide_popups(){
