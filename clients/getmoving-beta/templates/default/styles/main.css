@@ -1,0 +1,320 @@
+* {margin: 0; padding: 0;}
+
+body{
+    font-family: SofiaProMedium;
+}
+
+h1, h2, h3{
+    font-family: SofiaProBold;
+}
+
+#wrap{
+    
+}
+
+/* Header */
+
+#head{
+    position: relative;
+    display: block;
+    height: 80px;
+    box-shadow: 0px 0px 2px 0px #999;
+    z-index: 3;
+}
+
+#head img{
+    height: 80px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#head ul{
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+    padding-right: 20px;
+}
+
+#head ul li{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+#head ul li a{
+    display: block;
+    line-height: 80px;
+    color: #0645AD;
+    color: #000000;
+    text-decoration: none;
+}
+#head ul li a:hover{
+    text-decoration: underline;
+}
+
+#head ul li a i{
+    margin-right: 3px;
+}
+
+/* Sidebar */
+
+#sidebar{
+    position: absolute;
+    background-color: #fff;
+    width: 250px;
+    height: calc(100vh - 80px);
+    top: 0;
+    margin-top: 80px;
+    z-index: 2;
+    left: -210px;
+    transition: left 0.2s linear;
+    box-shadow: 0 0 5px #444;
+}
+#sidebar:hover{
+    left: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+#sidebar h2{
+    text-align: left;
+    padding: 10px 19px;
+    line-height: 34px;
+}
+#sidebar h2 i{
+    float: right;
+    line-height: 34px;
+}
+
+#sidebar img{
+    display: block;
+    width: 200px;
+    margin: 20px;
+    margin-top: 30px;
+}
+
+#sidebar ul{
+    list-style-type: none;
+}
+#sidebar ul li{
+    display: block;
+}
+#sidebar ul li input, #sidebar ul li select, #sidebar ul li a{
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    padding: 7px 5px;
+    margin-bottom: 20px;
+    
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
+    box-sizing:content-box;
+}
+
+#sidebar ul li input{
+    border: 1px solid #9e9e9e;
+    border-radius: 2px;
+}
+
+#sidebar ul li select{
+    border: 1px solid #9e9e9e;
+    border-radius: 2px;
+    text-align: left;
+}
+
+#sidebar ul li a{
+    display: block;
+    color: #000;
+    text-decoration: none;
+    text-align: center;
+    width: 240px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: background-color 0.1s linear;
+}
+#sidebar ul li a:hover{
+    background-color: #9e9e9e;
+}
+
+#content{
+    display: block;
+    position: relative;
+    margin-left: 40px;
+}
+
+/* Map */
+
+#map{
+    height: calc(100vh - 80px);
+    z-index: 1;
+}
+
+/* Map forms */
+
+#form_cover{
+    position: fixed;
+    height: 100%;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #999;
+    opacity: 0.2;
+    z-index: 800;
+}
+
+#form_willbehere, #form_ishere{
+    background-color: #fff;
+    min-width: 10%;
+    width: 500px;
+    min-height: 200px;
+    padding: 20px;
+    max-width: 95%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+    z-index: 900;
+}
+
+#form_willbehere form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#form_willbehere form > div, #form_ishere form > div{
+    display: inline-block;
+    flex-grow: 1;
+}
+#form_willbehere form > div:first-of-type{
+    /*margin-right: 30px;*/
+}
+
+/* General content */
+
+#content.text{
+    margin: 0 auto;
+    width: 70%;
+}
+
+/* About us */
+
+#content.about{
+    padding: 10px;
+}
+
+#content.about #employees{
+    margin-top: 1em;
+}
+
+#content.about #employees h2{
+    margin-bottom: 5px;
+}
+
+#content.about #employees .employee{
+    display: inline-block;
+    padding: 0 15px;
+    text-align: center;
+    vertical-align: top;
+}
+#content.about #employees .employee:first-of-type{padding-left: 0;}
+#content.about #employees .employee:last-of-type{padding-right: 0;}
+
+#content.about #employees .employee img{
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+}
+
+#content.about #employees .employee h3{
+    line-height: 20px;
+}
+#content.about #employees .employee h2{
+    
+}
+
+#content.about #employees .employee #role{
+    margin-top: 8px;
+}
+
+#content.about .madeby{
+    margin-top: 40px;
+}
+
+/* Login */
+
+#content.login .fb-login{
+    display: block;
+    width: initial;
+    vertical-align: top;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+#content.login .fb-login-button{
+    display: inline-block;
+    text-decoration: none;
+    padding: 4px;
+    padding-right: 7px;
+    margin-top: 20px;
+    margin-bottom: 14px;
+    background-color: #3b5998;
+    border-radius: 3px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 16px;
+}
+
+#content.login .fb-login-button svg{
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
+
+#content.login .fb-login-button span{
+    padding-left: 5px;
+    color: #ffffff;
+    vertical-align: top;
+}
+
+#content.login .email{
+    width: initial;
+    display: block;
+}
+
+#content.login .email p{
+    display: block;
+    margin-bottom: 10px;
+}
+
+#content.login .email input{
+    display: block;
+    padding: 4px;
+    border: 1px solid #989898;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content.login .email button{
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+#content.login .email .login{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: center;
+}
+
+
+#content.login .email .register{
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    text-align: center;
+}

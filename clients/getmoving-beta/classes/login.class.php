@@ -14,7 +14,9 @@ class GM_Login{
         $code = $_GET['code'];
         $app_id = "553540261437395";
         $app_secret = "c1773e735cf65bcf837b0286267744bd";
-        $my_url = "https://get-moving.no/?pid=".get_pid($this->db, $this->tbl, "handle_login");
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'].'/';
+        $my_url = $protocol.$domainName."?pid=".get_pid($this->db, $this->tbl, "handle_login");
         
         //Redirect if the code is not sent
         if(empty($code)) {

@@ -78,11 +78,19 @@ function addMarker(markerIndex, markerData){
         map: map
     });
     
+    var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+       '<p>' + markerData.description + '</p>' +
+       '<p>' + markerData.active_users.length + ' aktive brukere</p>' +
+       '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
+    if(user.id != 0){
+        infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+           '<p>' + markerData.description + '</p>' +
+           '<p>' + markerData.active_users.length + ' aktive brukere</p>' +
+           '<p class="user-links"><a href="javascript:form_ishere(' + markerIndex + ')">Jeg er her</a><a href="javascript:form_willbehere(' + markerIndex + ')">Jeg skal hit</a><a href="">Chat</a></p>';
+    }
+    
     var infoWindow = new google.maps.InfoWindow({
-          content: '<h3>' + markerData.name + '</h3>' +
-                   '<p>' + markerData.description + '</p>' +
-                   '<p>' + markerData.active_users + ' aktive brukere</p>' +
-                   '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>'
+          content: infoWindowContent
     });
     infoWindows[infoWindows.length] = infoWindow;
     
