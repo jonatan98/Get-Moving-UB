@@ -49,10 +49,15 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $active_users = '[]';
-            
+            $stmt = $db->prepare("SELECT userID AS id FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
+            $stmt->execute(array(
+                'locationID' => $location['locationID']
+            ));
+            $user_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $active_users = json_encode($user_locations);
             
             $variables['locations'][] = array(
+                'location_id' => $location['locationID'],
                 'location_lat' => $location['lat'],
                 'location_lng' => $location['lng'],
                 'location_type' => $location['icon_type'],
