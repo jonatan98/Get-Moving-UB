@@ -6,6 +6,13 @@ body{
     font-family: Verdana;
 }
 
+ol{
+    margin-left: 20px;
+}
+ol li{
+    line-height: 25px;
+}
+
 #menu, #content .section > div{
     width: 1200px;
     margin: 0 auto;
@@ -159,9 +166,34 @@ div#slides{
     width: 90%;
 }
 
+/* How to use */
+
 /* About */
 
+#teamet{
+    margin-top: 3em;
+}
 
+#teamet .employee{
+    display: inline-block;
+    vertical-align: top;
+    width: 20%;
+    text-align: center;
+}
+
+#teamet .employee img{
+    height: 150px;
+    border-radius: 150px;
+    margin-bottom: 10px;
+}
+
+#teamet .employee h3{
+    font-size: 20px;
+}
+
+#teamet .employee p{
+    margin-bottom: 0px;
+}
 
 
 
