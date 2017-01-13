@@ -89,6 +89,8 @@ function addMarker(markerIndex, markerData){
            '<p class="user-links"><a href="javascript:form_ishere(' + markerIndex + ')">Jeg er her</a><a href="javascript:form_willbehere(' + markerIndex + ')">Jeg skal hit</a><a href="">Chat</a></p>';
     }
     
+    infoWindowContent = '<div class="info-window">' + infoWindowContent + '</div>';
+    
     var infoWindow = new google.maps.InfoWindow({
           content: infoWindowContent
     });

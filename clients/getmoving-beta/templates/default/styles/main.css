@@ -148,6 +148,24 @@ h1, h2, h3{
     z-index: 1;
 }
 
+#map .info-window p{
+    margin-top: 5px;
+}
+
+#map .info-window .user-links{
+    margin-top: 5px;
+}
+
+#map .info-window .user-links a{
+    display: inline-block;
+    margin-right: 20px;
+    color: #0000ee;
+    text-decoration: none;
+}
+#map .info-window .user-links a:hover{
+    text-decoration: underline;
+}
+
 /* Map forms */
 
 #form_cover{
