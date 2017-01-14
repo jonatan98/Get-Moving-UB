@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>%page_title%</title>
-    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="%static_url%imgs/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="%static_url%imgs/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="%static_url%imgs/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="%static_url%imgs/favicon/manifest.json">
+    <link rel="mask-icon" href="%static_url%imgs/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="%static_url%imgs/favicon/favicon.ico">
+    <meta name="msapplication-config" content="%static_url%imgs/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="%template_url%styles/main.css" />
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-49008859-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 </head>
 <body>
 <div id="menu_wrap"><div id="menu">
@@ -62,32 +81,36 @@
         </ol>
     </div></div>
     <div id="about" class="section"><div>
-        <h1>Get Moving</h1>
-        <p>Get Moving er en ungdomsbedrift fra Nydalen VGS som har som mål å få flere barn og unge ut i aktivitet.</p>
-        <p>Bedriften består av 5 elever som alle har følt på behovet for en slik tjeneste.</p>
+        <h1>Get Moving UB</h1>
+        <p>Get Moving UB er en ungdomsbedrift fra Nydalen VGS som har som mål å få flere barn og unge ut i aktivitet. Bedriftens 5 medlemmer har alle følt på behovet for en slik tjeneste, og jobber nå aktivt for å lage den og få den ut på markedet.</p>
         <p>Kontakt: <a href="mailto:getmovingub@gmail.com">getmovingub@gmail.com</a></p>
         <div id="teamet">
             <div class="employee">
-                <img src="" alt="Ole Jakob Dahl - daglig leder" />
-                <h2>Ole Jakob Dahl</h2>
-                <p>Daglig leder</p>
+                <img src="%static_url%imgs/employees/missing_image.jpg" alt="Ole Jakob Dahl - daglig leder" />
+                <h3 class="name">Ole Jakob</h3>
+                <h2 class="surname">Dahl</h2>
+                <p class="responsibility">Daglig leder</p>
             </div><div class="employee">
-                <img src="" alt="Nivethan Senthurvasan" />
-                <h2>Nivethan Senthurvasan</h2>
-                <p>Markedsføring</p>
+                <img src="%static_url%imgs/employees/missing_image.jpg" alt="Nivethan Senthurvasan" />
+                <h3 class="name">Nivethan</h3>
+                <h2 class="surname">Senthurvasan</h2>
+                <p class="responsibility">Markedsføring</p>
             </div><div class="employee">
                 <img src="%static_url%imgs/employees/profil_jonatan.jpg" alt="Jonatan Norbye" />
-                <h2>Jonatan Norbye</h2>
-                <p>Økonomi</p>
-                <p>Nettsideutvikler</p>
+                <h3 class="name">Jonatan</h3>
+                <h2 class="surname">Norbye</h2>
+                <p class="responsibility">Økonomi</p>
+                <p class="responsibility">Nettsideutvikler</p>
             </div><div class="employee">
-                <img src="" alt="Simen Flock Hogstad" />
-                <h2>Simen Flock Hogstad</h2>
-                <p>Personal</p>
+                <img src="%static_url%imgs/employees/missing_image.jpg" alt="Simen Flock Hogstad" />
+                <h3 class="name">Simen</h3>
+                <h2 class="surname">Flock Høgstad</h2>
+                <p class="responsibility">Personal</p>
             </div><div class="employee">
-                <img src="" alt="Mattias Lund Dahlin" />
-                <h2>Mattias Lund Dahlin</h2>
-                <p>Produktutvikling</p>
+                <img src="%static_url%imgs/employees/missing_image.jpg" alt="Mattias Lund Dahlin" />
+                <h3 class="name">Mattias</h3>
+                <h2 class="surname">Lund Dahlin</h2>
+                <p class="responsibility">Produktutvikling</p>
             </div>
         </div>
     </div>
