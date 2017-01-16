@@ -1,0 +1,179 @@
+
+@media only screen and (max-width: 1250px) {
+    #menu{
+        width: 98%;
+        margin: 0 1%;
+    }
+    #content .section > div{
+        width: 90%;
+        margin: 0 5%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #content .section .split.percent40{ width: 50%; }
+    #content .section .split.percent50{ width: 50%; }
+    #content .section .split.percent60{ width: 50%; }
+    
+    /* About */
+
+    #teamet .employee{
+        width: 25%;
+        margin-bottom: 2em;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    
+    /* About */
+
+    #teamet .employee{
+        width: 33.333333%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #menu, #content .section > div{
+        width: 96%;
+        margin: 0 2%;
+    }
+    
+    /*
+     * Menu
+    */
+
+    #menu{
+        height: 80px;
+    }
+
+    #menu img{
+        height: 60px;
+    }
+
+    #menu ul{
+        margin-right: 10px;
+    }
+
+    #menu ul li{
+        line-height: 80px;
+    }
+
+    #menu ul li a{
+        font-size: 17px;
+        margin: 0 10px;
+    }
+    
+    /*
+     * Content
+    */
+
+    #content .section{
+        padding-top: 2em;
+        padding-bottom: 2em;
+    }
+
+    #content .section h1{
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    #content .section p{
+        line-height: 24px;
+        margin-bottom: 15px;
+    }
+
+    #content .section .split{
+        display: block;
+    }
+    #content .section .split.percent40{ width: 100%; }
+    #content .section .split.percent50{ width: 100%; }
+    #content .section .split.percent60{ width: 100%; }
+
+    /* Slides */
+
+    #content #slides{
+        padding-top: 3em;
+        padding-bottom: 3em;
+    }
+
+    #slides h2{
+        font-size: 30px;
+    }
+
+    #slides p{
+        margin: 0 20px;
+    }
+
+    /* Countdown */
+    
+    #countdown{
+        margin-top: 1em;
+    }
+
+    /* Ease of use */
+    
+    #ease-of-use > div{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #ease-of-use .text{ order: 1; }
+    #ease-of-use .image{ order: 2; }
+
+    #ease-of-use img{
+        display: block;
+        width: 70%;
+        margin: 0 15%;
+        order:2;
+    }
+
+    /* About */
+    
+    #teamet .employee h3{
+        font-size: 20px;
+    }
+
+    #teamet .employee p{
+        margin-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #teamet .employee{
+        width: 50%;
+    }
+    
+    #ease-of-use img{
+        display: block;
+        width: 90%;
+        margin: 0 5%;
+        order:2;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    /*
+     * Menu
+    */
+
+    #menu{
+        height: 70px;
+    }
+
+    #menu img{
+        height: 50px;
+    }
+
+    #menu ul{
+        margin-right: 10px;
+    }
+
+    #menu ul li{
+        line-height: 70px;
+    }
+
+    #menu ul li a{
+        font-size: 15px;
+        margin: 0 10px;
+    }
+}

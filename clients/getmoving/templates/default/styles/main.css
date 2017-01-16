@@ -139,10 +139,6 @@ div#slides{
     
 }
 
-#countdown h3{
-    text-align: center;
-}
-
 #countdown table, #countdown table thead, #countdown table tbody{
     width: 100%;
 }
@@ -183,7 +179,7 @@ div#slides{
 
 #teamet .employee img{
     height: 150px;
-    border-radius: 150px;
+    border-radius: 75px;
     margin-bottom: 10px;
 }
 
