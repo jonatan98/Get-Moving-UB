@@ -11,6 +11,8 @@ function form_ishere(markerIndex){
     document.getElementById("form_cover").style.display = "block";
     var div = document.getElementById("form_ishere");
     
+    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    
     var now = new Date();
     var sooner = new Date(now.setHours((now).getHours()+2));
     var lt = div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
@@ -23,6 +25,8 @@ function form_willbehere(markerIndex){
     hide_popups();
     document.getElementById("form_cover").style.display = "block";
     var div = document.getElementById("form_willbehere");
+    
+    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
     
     var now = new Date();
     var at = div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());

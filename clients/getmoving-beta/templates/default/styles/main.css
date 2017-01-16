@@ -195,18 +195,28 @@ h1, h2, h3{
     z-index: 900;
 }
 
-#form_willbehere form{
+#form_willbehere form .time_wrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-#form_willbehere form > div, #form_ishere form > div{
+#form_willbehere form .time_wrapper > div, #form_ishere form .time_wrapper > div{
     display: inline-block;
     flex-grow: 1;
 }
 #form_willbehere form > div:first-of-type{
     /*margin-right: 30px;*/
+}
+
+#form_willbehere form button, #form_ishere form button{
+    display: block;
+    margin-top: 20px;
+    padding: 7px 70px;
+    border: 1px solid #888;
+    border-radius: 2px;
+    background: linear-gradient(#18d9f6, #18c5d9);
+    cursor: pointer;
 }
 
 /* General content */
