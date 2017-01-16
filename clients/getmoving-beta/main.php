@@ -92,8 +92,17 @@ switch($page['type']){
         }
         break;
     case "handle_active_user":
+        //Kick user out if not logged in
+        if(!isset($_SESSION['userID'])){
+            $_SESSION['error'] = 'Ikke logget inn';
+            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+        }
+        //Verify all info has been sent
+        if(!isset($_POST['leave']) || !isset($_POST['leave_time']) || !isset($_POST['locationID']) || !isset($_POST['type'])){
+            $_SESSION['error'] = 'Mangler data';
+            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+        }
         //Lagre data fra bruker
-        print_r($_POST);
         if(!isset($_POST['type']) || ($_POST['type'] != 'willbehere' && $_POST['type'] != 'ishere')){
             die("Wat");
         }
@@ -120,7 +129,7 @@ switch($page['type']){
         }
         
         //Get the duration of stay
-        $stop = $start;
+        $stop = clone $start;
         if(in_array($_POST['leave'], $allowed_time_shortcuts)){
             //Calculate x mins from now
             $stop->add(new DateInterval('PT' . $_POST['leave'] . 'M'));
@@ -134,11 +143,11 @@ switch($page['type']){
         
         $stmt = $db->prepare("INSERT INTO `".$tbl['getmoving_user_location']."` (userID, locationID, start, stop, registered) VALUES (:uid, :lid, :start, :stop, :registered)");
         $res = $stmt->execute(array(
-            'uid' => 1,
-            'lid' => 2,
-            'start' => ($start->format("Y-m-d H:m:s")),
-            'stop' => ($stop->format("Y-m-d H:m:s")),
-            'registered' => (new DateTime())->format("Y-m-d H:m:s")
+            'uid' => $_SESSION['userID'],
+            'lid' => $_POST['locationID'],
+            'start' => ($start->format("Y-m-d H:i:s")),
+            'stop' => ($stop->format("Y-m-d H:i:s")),
+            'registered' => (new DateTime())->format("Y-m-d H:i:s")
         ));
         if($res){
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
