@@ -216,50 +216,6 @@ h1, h2, h3{
     width: 70%;
 }
 
-/* About us */
-
-#content.about{
-    padding: 10px;
-}
-
-#content.about #employees{
-    margin-top: 1em;
-}
-
-#content.about #employees h2{
-    margin-bottom: 5px;
-}
-
-#content.about #employees .employee{
-    display: inline-block;
-    padding: 0 15px;
-    text-align: center;
-    vertical-align: top;
-}
-#content.about #employees .employee:first-of-type{padding-left: 0;}
-#content.about #employees .employee:last-of-type{padding-right: 0;}
-
-#content.about #employees .employee img{
-    display: block;
-    width: 150px;
-    margin: 0 auto;
-}
-
-#content.about #employees .employee h3{
-    line-height: 20px;
-}
-#content.about #employees .employee h2{
-    
-}
-
-#content.about #employees .employee #role{
-    margin-top: 8px;
-}
-
-#content.about .madeby{
-    margin-top: 40px;
-}
-
 /* Login */
 
 #content.login .fb-login{
