@@ -16,22 +16,6 @@ function initMap() {
     for(var i = 0; i < markers.length; i++){
         addMarker(i, markers[i]);
     }
-    
-    
-          
-    /*var marker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Addresse',
-        labelContent: "$425K",
-        labelAnchor: new google.maps.Point(22, 0),
-        labelClass: "labels", // the CSS class for the label
-        labelStyle: {opacity: 0.75}
-    });*/
-    
-    /*google.maps.event.addListener(map, 'click', function( event ){
-        console.log( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
-    });*/
 }
 
 /*
