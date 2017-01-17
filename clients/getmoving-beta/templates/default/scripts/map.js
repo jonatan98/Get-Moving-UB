@@ -77,10 +77,16 @@ function addMarker(markerIndex, markerData){
         ),
         map: map
     });
+    var activeUsers = markerData.active_users.length + ' aktive brukere';
+    if(markerData.active_users.length == 0){
+        activeUsers = 'ingen aktive brukere';
+    }else if(markerData.active_users.length == 1){
+        activeUsers = '1 aktiv bruker';
+    }
     
     var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
        '<p>' + markerData.description + '</p>' +
-       '<p>' + markerData.active_users.length + ' aktive brukere</p>' +
+       '<p>' + activeUsers + '</p>' +
        '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
     if(user.id != 0){
         infoWindowContent = '<h3>' + markerData.name + '</h3>' +
