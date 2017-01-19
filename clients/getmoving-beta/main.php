@@ -111,7 +111,7 @@ switch($page['type']){
         
         $allowed_time_shortcuts = array_map(function($piece){
             return (string) $piece;
-        }, array("15", "30", "60", "90", "120"));
+        }, array("15", "30", "45", "60", "90", "120"));
         
         //Get the start time
         $start = new DateTime();
@@ -133,7 +133,7 @@ switch($page['type']){
         if(in_array($_POST['leave'], $allowed_time_shortcuts)){
             //Calculate x mins from now
             $stop->add(new DateInterval('PT' . $_POST['leave'] . 'M'));
-        }else if($_POST['arrival'] == "time" && preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $_POST['arrival_time'])){
+        }else if($_POST['leave'] == "time" && preg_match("/(2[0-3]|[01][0-9]):([0-5][0-9])/", $_POST['leave_time'])){
             $lt = explode(':', $_POST['leave_time']);
             $stop->setTime(intval($lt[0]), intval($lt[1]));
         }else{
