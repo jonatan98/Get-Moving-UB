@@ -28,12 +28,11 @@
 
 <!-- Forms -->
 <div id="form_cover" onclick="hide_form_cover()" style="display: none;"></div>
-<div id="form_willbehere" style="display: none;" class="popup_form">
+<div id="form_timepicker" style="display: none;" class="popup_form">
     <form action="/%pname_handle_active_user%.html" method="POST">
-        <input type="hidden" name="type" value="willbehere" />
         <input type="hidden" name="locationID" value="0" class="locationID" />
         <div class="time_wrapper">
-            <div>
+            <div class="arrival_div">
                 <h3>Ankomsttidspunkt</h3>
                 <div><input type="radio" name="arrival" value="15" id="a15" /><label for="a15">Om 15 minutter</label></div>
                 <div><input type="radio" name="arrival" value="30" id="a30" /><label for="a30">Om 30 minutter</label></div>
@@ -41,7 +40,7 @@
                 <div><input type="radio" name="arrival" value="60" id="a60" /><label for="a60">Om 1 time</label></div>
                 <div><input type="radio" name="arrival" value="90" id="a90" /><label for="a90">Om 1 time og 30 min</label></div>
                 <div><input type="radio" name="arrival" value="time" id="at" selected="selected" /><label for="at">Velg tidspunkt</label><br><input type="time" name="arrival_time" class="arrival_time" value="" /></div>
-            </div><div>
+            </div><div class="leave_div">
                 <h3>Lengde på opphold</h3>
                 <div><input type="radio" name="leave" value="15" id="l15" /><label for="l15">15 minutter</label></div>
                 <div><input type="radio" name="leave" value="30" id="l30" /><label for="l30">30 minutter</label></div>
@@ -49,24 +48,6 @@
                 <div><input type="radio" name="leave" value="60" id="l60" /><label for="l60">1 time</label></div>
                 <div><input type="radio" name="leave" value="90" id="l90" /><label for="l90">1 time og 30 min</label></div>
                 <div><input type="radio" name="leave" value="time" id="lt" selected="selected" /><label for="lt">Velg tidspunkt å dra</label><br><input type="time" name="leave_time" class="leave_time" value="" /></div>
-            </div>
-        </div>
-        <button>Lagre</button>
-    </form>
-</div>
-<div id="form_ishere" style="display: none;" class="popup_form">
-    <form action="/%pname_handle_active_user%.html" method="POST">
-        <input type="hidden" name="type" value="ishere" />
-        <input type="hidden" name="locationID" value="0" class="locationID" />
-        <div class="time_wrapper">
-            <div>
-                <h3>Lengde på opphold</h3>
-                <div><input type="radio" name="leave" value="15" id="l15" /><label for="l15">15 minutter</label></div>
-                <div><input type="radio" name="leave" value="30" id="l30" /><label for="l30">30 minutter</label></div>
-                <div><input type="radio" name="leave" value="45" id="l45" /><label for="l45">45 minutter</label></div>
-                <div><input type="radio" name="leave" value="60" id="l60" /><label for="l60">1 time</label></div>
-                <div><input type="radio" name="leave" value="90" id="l90" /><label for="l90">1 time og 30 min</label></div>
-                <div><input type="radio" name="leave" value="time" id="lt" selected="selected" /><label for="lt">Velg tidspunkt å dra</label></br><input type="time" name="leave_time" class="leave_time" value="" /></div>
             </div>
         </div>
         <button>Lagre</button>

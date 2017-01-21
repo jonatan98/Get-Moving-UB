@@ -180,7 +180,7 @@ h1, h2, h3{
     z-index: 800;
 }
 
-#form_willbehere, #form_ishere{
+#form_timepicker{
     background-color: #fff;
     min-width: 10%;
     width: 500px;
@@ -195,21 +195,21 @@ h1, h2, h3{
     z-index: 900;
 }
 
-#form_willbehere form .time_wrapper{
+#form_timepicker form .time_wrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-#form_willbehere form .time_wrapper > div, #form_ishere form .time_wrapper > div{
+#form_timepicker form .time_wrapper > div, #form_ishere form .time_wrapper > div{
     display: inline-block;
     flex-grow: 1;
 }
-#form_willbehere form > div:first-of-type{
+#form_timepicker form > div:first-of-type{
     /*margin-right: 30px;*/
 }
 
-#form_willbehere form button, #form_ishere form button{
+#form_timepicker form button{
     display: block;
     margin-top: 20px;
     padding: 7px 70px;

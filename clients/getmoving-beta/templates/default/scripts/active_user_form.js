@@ -9,9 +9,11 @@ function hide_form_cover(){
 function form_ishere(markerIndex){
     hide_popups();
     document.getElementById("form_cover").style.display = "block";
-    var div = document.getElementById("form_ishere");
+    var div = document.getElementById("form_timepicker");
     
     div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    //Hide start time
+    div.getElementsByClassName("arrival_div")[0].style.display = "none";
     
     var now = new Date();
     var sooner = new Date(now.setHours((now).getHours()+2));
@@ -24,9 +26,11 @@ function form_ishere(markerIndex){
 function form_willbehere(markerIndex){
     hide_popups();
     document.getElementById("form_cover").style.display = "block";
-    var div = document.getElementById("form_willbehere");
+    var div = document.getElementById("form_timepicker");
     
     div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    //Show start time
+    div.getElementsByClassName("arrival_div")[0].style.display = "block";
     
     var now = new Date();
     var at = div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());
