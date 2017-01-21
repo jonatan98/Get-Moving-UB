@@ -5,39 +5,38 @@ function hide_form_cover(){
     hide_popups();
 }
 
-//Promt the user with a form questioning for how long it will be there
-function form_ishere(markerIndex){
-    hide_popups();
-    document.getElementById("form_cover").style.display = "block";
-    var div = document.getElementById("form_timepicker");
-    
-    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
-    //Hide start time
-    div.getElementsByClassName("arrival_div")[0].style.display = "none";
-    
-    var now = new Date();
-    var sooner = new Date(now.setHours((now).getHours()+2));
-    var lt = div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
-    
-    div.style.display = "block";
-}
-
 //Prompt the user with a form questioning when and for how long it will be there
-function form_willbehere(markerIndex){
+function form_newuser(markerIndex, ishere){
     hide_popups();
     document.getElementById("form_cover").style.display = "block";
     var div = document.getElementById("form_timepicker");
     
     div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
     //Show start time
-    div.getElementsByClassName("arrival_div")[0].style.display = "block";
+    if(ishere){
+        div.getElementsByClassName("arrival_div")[0].style.display = "none";
+    }else{
+        div.getElementsByClassName("arrival_div")[0].style.display = "block";
+    }
     
     var now = new Date();
-    var at = div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());
+    if(!ishere){
+        div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());
+    }
     var sooner = new Date(now.setHours((now).getHours()+2));
-    var lt = div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
+    div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
     
     div.style.display = "block";
+}
+
+//Prompt the user with a form requesting new data for arrival and leaving
+function form_activeuser(markerIndex){
+    //TODO display form
+}
+
+//Prompt the user with a form to verify it has left
+function form_leave(markerIndex){
+    //TODO display form
 }
 
 function pad(n){
