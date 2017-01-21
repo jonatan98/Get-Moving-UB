@@ -61,22 +61,63 @@ function addMarker(markerIndex, markerData){
         ),
         map: map
     });
-    var activeUsers = markerData.active_users.length + ' aktive brukere';
-    if(markerData.active_users.length == 0){
-        activeUsers = 'ingen aktive brukere';
-    }else if(markerData.active_users.length == 1){
-        activeUsers = '1 aktiv bruker';
+    
+    var active_users_length = markerData.active_users.length;
+    //Init activeUsers string
+    var activeUsers = active_users_length + ' aktive brukere';;
+    //Update string in accordance with grammatic rules
+    switch(active_users_length){
+        case 0:
+            activeUsers = 'Ingen aktive brukere';
+            break;
+        case 1:
+            activeUsers = '1 aktiv bruker';
+            break;
     }
     
+    //Check if the user is active at the given location
+    for(var z = 0; z < active_users_length; z++){
+        if(markerData.active_users[z].id == user.id){
+            break;
+        }
+    }
+    if(active_users_length != z){
+        //Made number reflect amount of other users
+        active_users_length--;
+        switch(active_users_length){
+            case 0:
+                activeUsers = 'Du er den eneste aktive brukeren';
+                break;
+            case 1:
+                activeUsers = 'Du, og ' + active_users_length + ' annen aktiv bruker';
+                break;
+            default:
+                activeUsers = 'Du, og ' + active_users_length + ' andre aktive brukere';
+                break;
+        }
+        //Restored original number value
+        active_users_length++;
+    }
+    
+    //Format infoWindowContent
     var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
        '<p>' + markerData.description + '</p>' +
        '<p>' + activeUsers + '</p>' +
        '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
     if(user.id != 0){
-        infoWindowContent = '<h3>' + markerData.name + '</h3>' +
-           '<p>' + markerData.description + '</p>' +
-           '<p>' + markerData.active_users.length + ' aktive brukere</p>' +
-           '<p class="user-links"><a href="javascript:form_ishere(' + markerIndex + ')">Jeg er her</a><a href="javascript:form_willbehere(' + markerIndex + ')">Jeg skal hit</a><a href="">Chat</a></p>';
+        if(active_users_length != z){
+            //User is active at the current location
+            infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+               '<p>' + markerData.description + '</p>' +
+               '<p>' + activeUsers + '</p>' +
+               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ')">Endre dratidspunkt</a><a href="javascript:form_leave(' + markerIndex + ')">Jeg har dratt</a></p>';
+        }else{
+            //User is not active at the current location
+            infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+               '<p>' + markerData.description + '</p>' +
+               '<p>' + activeUsers + '</p>' +
+               '<p class="user-links"><a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a><a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
+        }
     }
     
     infoWindowContent = '<div class="info-window">' + infoWindowContent + '</div>';
