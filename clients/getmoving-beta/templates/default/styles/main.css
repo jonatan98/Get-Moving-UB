@@ -195,6 +195,24 @@ h1, h2, h3{
     z-index: 900;
 }
 
+#form_timepicker .top-right{ 
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+}
+
+#form_timepicker .top-right i{
+    vertical-align: top;
+    display: inline-block;
+    font-size: 19px;
+    cursor: hover;
+}
+
+#form_timepicker .top-right .fa-close{
+    
+}
+
 #form_timepicker form .time_wrapper{
     display: flex;
     flex-direction: row;
