@@ -79,6 +79,16 @@ function addMarker(markerIndex, markerData){
     //Get a formatted string with the nr of active users
     var activeUsers = getActiveUsersString(active_users_length, active_user != null);
     
+    //Fetch all the times the users are leaving
+    var leaves = [];
+    for(var i = 0; i < active_users_length; i++){
+        leaves.push(markerData.active_users[i].stop_time);
+    }
+    var leave_string = '';
+    if(active_users_length > 0){
+        var leave_string = '(drar ' + leaves.join(', ') + ')';
+    }
+    
     //Get the amount of soon active users
     var soonActiveUsers = "";
     if(soon_active_users_length > 0){
@@ -94,26 +104,36 @@ function addMarker(markerIndex, markerData){
         var soonActiveUsers = getSoonActiveUsersString(soon_active_users_length, active_user != null);
     }
     
+    //Fetch all the times the users are arriving
+    var arrives = [];
+    for(var i = 0; i < soon_active_users_length; i++){
+        arrives.push(markerData.soon_active_users[i].stop_time);
+    }
+    var arrive_string = '';
+    if(soon_active_users_length > 0){
+        var arrive_string = '(kommer ' + arrives.join(', ') + ')';
+    }
+    
     //Format infoWindowContent
     var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
        '<p>' + markerData.description + '</p>' +
-       '<p>' + activeUsers + '</p>' +
-       '<p>' + soonActiveUsers + '</p>' +
+       '<p>' + activeUsers + ' ' + leave_string + '</p>' +
+       '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
        '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
     if(user.id != 0){
         if(active_user != null){
             //User is active at the current location
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
                '<p>' + markerData.description + '</p>' +
-               '<p>' + activeUsers + '</p>' +
-               '<p>' + soonActiveUsers + '</p>' +
+               '<p>' + activeUsers + ' ' + leave_string + '</p>' +
+               '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
                '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')">Endre dratidspunkt</a>' + cancel_data_link + '</p>';
         }else{
             //User is not active at the current location
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
                '<p>' + markerData.description + '</p>' +
-               '<p>' + activeUsers + '</p>' +
-               '<p>' + soonActiveUsers + '</p>' +
+               '<p>' + activeUsers + ' ' + leave_string + '</p>' +
+               '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
                '<p class="user-links"><a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a><a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
         }
     }
