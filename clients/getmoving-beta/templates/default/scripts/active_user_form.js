@@ -40,6 +40,8 @@ function form_activeuser(markerIndex, start_time, stop_time){
     //Show start time
     div.getElementsByClassName("arrival_div")[0].style.display = "block";
     
+    document.getElementById("at").checked = true;
+    document.getElementById("lt").checked = true;
     div.getElementsByClassName("arrival_time")[0].value = start_time;
     div.getElementsByClassName("leave_time")[0].value = stop_time;
     
@@ -66,6 +68,17 @@ function form_cancel(markerIndex, start_hour){
     div.getElementsByTagName("form")[0].submit();
 }
 
+//Make times selected on click
+$(function(){
+    document.getElementsByClassName("arrival_time")[0].onclick = function(){
+        document.getElementById("at").checked = true;
+    };
+    document.getElementsByClassName("leave_time")[0].onclick = function(){
+        document.getElementById("lt").checked = true;
+    };
+});
+
+//Add leading zeros to numbers
 function pad(n){
     return (n < 10) ? ("0" + n) : n;
 }
