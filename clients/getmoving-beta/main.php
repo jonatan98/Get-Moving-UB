@@ -49,7 +49,7 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $stmt = $db->prepare("SELECT userID AS id FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
+            $stmt = $db->prepare("SELECT userID AS id, start, stop FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
             $stmt->execute(array(
                 'locationID' => $location['locationID']
             ));
@@ -161,8 +161,6 @@ switch($page['type']){
         $vars['base_url'] = $protocol.$domainName;
         break;
     case "handle_login":
-        //print_r($_REQUEST);
-        //$_SESSION['state'] = md5(uniqid(rand(), TRUE));  //CSRF protection
         require CLIENT_CLASS_DIR.'login.class.php';
         $login = new GM_Login();
         $success = false;
