@@ -98,16 +98,11 @@ switch($page['type']){
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
         }
         //Verify all info has been sent
-        if(!isset($_POST['leave']) || !isset($_POST['leave_time']) || !isset($_POST['locationID']) || !isset($_POST['type'])){
+        if(!isset($_POST['leave']) || !isset($_POST['leave_time']) || !isset($_POST['locationID'])){
             $_SESSION['error'] = 'Mangler data';
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
         }
         //Lagre data fra bruker
-        if(!isset($_POST['type']) || ($_POST['type'] != 'willbehere' && $_POST['type'] != 'ishere')){
-            die("Wat");
-        }
-        $ishere = false;
-        if($_POST['type'] == 'ishere'){ $ishere = true; }
         
         $allowed_time_shortcuts = array_map(function($piece){
             return (string) $piece;
@@ -115,7 +110,7 @@ switch($page['type']){
         
         //Get the start time
         $start = new DateTime();
-        if(!$ishere){
+        if(isset($_POST['arrival'])){
             if(in_array($_POST['arrival'], $allowed_time_shortcuts)){
                 //Calculate x mins from now
                 $start->add(new DateInterval('PT' . $_POST['arrival'] . 'M'));
