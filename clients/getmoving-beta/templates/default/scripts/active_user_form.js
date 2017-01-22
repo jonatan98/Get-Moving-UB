@@ -30,8 +30,20 @@ function form_newuser(markerIndex, ishere){
 }
 
 //Prompt the user with a form requesting new data for arrival and leaving
-function form_activeuser(markerIndex){
+function form_activeuser(markerIndex, start_time, stop_time){
     //TODO display form
+    hide_popups();
+    document.getElementById("form_cover").style.display = "block";
+    var div = document.getElementById("form_timepicker");
+    
+    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    //Show start time
+    div.getElementsByClassName("arrival_div")[0].style.display = "block";
+    
+    div.getElementsByClassName("arrival_time")[0].value = start_time;
+    div.getElementsByClassName("leave_time")[0].value = stop_time;
+    
+    div.style.display = "block";
 }
 
 //Prompt the user with a form to verify it has left
