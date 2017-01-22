@@ -22,6 +22,9 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
  
 switch($page['type']){
     case "map":
+        if(isset($_SESSION['error'])){
+            echo $_SESSION['error']; unset($_SESSION['error']);
+        }
         //Get all locations
         $variables['locations'] = array();
         $stmt = $db->query("SELECT locationID, lat, lng, name, description, icon_type FROM `".$tbl['getmoving_location']."`");
@@ -49,7 +52,7 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID");
+            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND cancelled = 0 AND left_early = 0");
             $stmt->execute(array(
                 'locationID' => $location['locationID'],
                 'later_dt' => ((new DateTime())->modify("+120 minute"))->format("Y-m-d H:i:s")
@@ -109,9 +112,55 @@ switch($page['type']){
             $_SESSION['error'] = 'Ikke logget inn';
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
         }
+        //Check for special actions
+        if(isset($_POST['action']) && isset($_POST['locationID']) && $_POST['action'] !== 0){
+            if($_POST['action'] == 'left'){
+                if(!isset($_POST['arrival_time'])){
+                    $_SESSION['error'] = '#2 Mangler data';
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+                }
+                //User has left before estimated
+                $now = (new DateTime())->format("Y-m-d H:i:s");
+                $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user_location']."` SET `left_early` = 1, `stop` = :now WHERE locationID = :locationID AND userID = :userID AND DATE_FORMAT(`start`,'%H:%i') = :start");
+                if($stmt->execute(array(
+                    'now' => $now,
+                    'userID' => $_SESSION['userID'],
+                    'locationID' => $_POST['locationID'],
+                    'start' => $_POST['arrival_time']
+                ))){
+                    //Success
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+                }else{
+                    //Failed
+                    $_SESSION['error'] = 'Klarte ikke oppdatere';
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+                }
+                die();
+            }else if($_POST['action'] == 'cancel'){
+                if(!isset($_POST['arrival_time'])){
+                    $_SESSION['error'] = 'Mangler data';
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+                }
+                //User will not come :-(
+                $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user_location']."` SET `cancelled` = 1 WHERE locationID = :locationID AND userID = :userID AND DATE_FORMAT(`start`,'%H:%i') = :start");
+                if($stmt->execute(array(
+                    'userID' => $_SESSION['userID'],
+                    'locationID' => $_POST['locationID'],
+                    'start' => $_POST['arrival_time']
+                ))){
+                    //Success
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+                }else{
+                    //Failed
+                    $_SESSION['error'] = 'Klarte ikke oppdatere';
+                    header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+                }
+                die();
+            }
+        }
         //Verify all info has been sent
-        if(!isset($_POST['leave']) || !isset($_POST['leave_time']) || !isset($_POST['locationID'])){
-            $_SESSION['error'] = 'Mangler data';
+        if(!isset($_POST['leave']) || !isset($_POST['leave_time']) || !isset($_POST['locationID']) || !isset($_POST['action'])){
+            $_SESSION['error'] = '#1 Mangler data';
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
         }
         //Lagre data fra bruker
@@ -148,7 +197,7 @@ switch($page['type']){
         }
         
         //Check if the user has already registered activity within the timeframe
-        $stmt = $db->prepare("SELECT user_locationID FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND userID = :userID");
+        $stmt = $db->prepare("SELECT user_locationID FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND userID = :userID AND cancelled = 0 AND left_early = 0");
         $stmt->execute(array(
             'locationID' => $_POST['locationID'],
             'userID' => $_SESSION['userID'],

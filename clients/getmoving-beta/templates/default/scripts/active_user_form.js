@@ -50,7 +50,7 @@ function form_activeuser(markerIndex, start_time, stop_time){
 function form_leave(markerIndex, start_hour){
     //Update data
     var div = document.getElementById("form_timepicker");
-    div.getElementsByClassName("action")[0].value = "leave";
+    div.getElementsByClassName("action")[0].value = "left";
     div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
     div.getElementsByClassName("arrival_time")[0].value = start_hour;
     div.getElementsByTagName("form")[0].submit();
