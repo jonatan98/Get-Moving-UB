@@ -78,6 +78,7 @@ function addMarker(markerIndex, markerData){
     //Check if the user is active at the given location
     for(var z = 0; z < active_users_length; z++){
         if(markerData.active_users[z].id == user.id){
+            var active_user = markerData.active_users[z];
             break;
         }
     }
@@ -110,7 +111,7 @@ function addMarker(markerIndex, markerData){
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
                '<p>' + markerData.description + '</p>' +
                '<p>' + activeUsers + '</p>' +
-               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ')">Endre dratidspunkt</a><a href="javascript:form_leave(' + markerIndex + ')">Jeg har dratt</a></p>';
+               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')">Endre dratidspunkt</a><a href="javascript:form_leave(' + markerIndex + ')">Jeg har dratt</a></p>';
         }else{
             //User is not active at the current location
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
