@@ -49,12 +49,23 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
+            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID");
             $stmt->execute(array(
-                'locationID' => $location['locationID']
+                'locationID' => $location['locationID'],
+                'later_dt' => ((new DateTime())->modify("+120 minute"))->format("Y-m-d H:i:s")
             ));
             $user_locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $active_users = json_encode($user_locations);
+            $active_users = array();
+            $soon_active_users = array();
+            foreach($user_locations as $ul){
+                if(new DateTime() > new DateTime($ul['start_time'])){
+                    $active_users[] = $ul;
+                }else{
+                    $soon_active_users[] = $ul;
+                }
+            }
+            $active_users = json_encode($active_users);
+            $soon_active_users = json_encode($soon_active_users);
             
             $variables['locations'][] = array(
                 'location_id' => $location['locationID'],
@@ -66,6 +77,7 @@ switch($page['type']){
                 'location_areas' => implode(', ', $areas),
                 'location_activities' => implode(', ', $activities),
                 'location_users' => $active_users,
+                'location_soon_users' => $soon_active_users,
                 'location_separator' => ','
             );
         }
@@ -103,7 +115,6 @@ switch($page['type']){
             header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
         }
         //Lagre data fra bruker
-        
         $allowed_time_shortcuts = array_map(function($piece){
             return (string) $piece;
         }, array("15", "30", "45", "60", "90", "120"));
@@ -136,18 +147,41 @@ switch($page['type']){
             echo "Invalid start time<br>";
         }
         
-        $stmt = $db->prepare("INSERT INTO `".$tbl['getmoving_user_location']."` (userID, locationID, start, stop, registered) VALUES (:uid, :lid, :start, :stop, :registered)");
-        $res = $stmt->execute(array(
-            'uid' => $_SESSION['userID'],
-            'lid' => $_POST['locationID'],
-            'start' => ($start->format("Y-m-d H:i:s")),
-            'stop' => ($stop->format("Y-m-d H:i:s")),
-            'registered' => (new DateTime())->format("Y-m-d H:i:s")
+        //Check if the user has already registered activity within the timeframe
+        $stmt = $db->prepare("SELECT user_locationID FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND userID = :userID");
+        $stmt->execute(array(
+            'locationID' => $_POST['locationID'],
+            'userID' => $_SESSION['userID'],
+            'later_dt' => ((new DateTime())->modify("+120 minute"))->format("Y-m-d H:i:s")
         ));
-        if($res){
-            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+        if($activity = $stmt->fetch(PDO::FETCH_ASSOC)){
+            //User is already active
+            $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user_location']."` SET start = :start, stop = :stop WHERE user_locationID = :luid");
+            $res = $stmt->execute(array(
+                'luid' => $activity['user_locationID'],
+                'start' => ($start->format("Y-m-d H:i:s")),
+                'stop' => ($stop->format("Y-m-d H:i:s"))
+            ));
+            if($res){
+                header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+            }else{
+                header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+            }
         }else{
-            header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+            //User has no active record
+            $stmt = $db->prepare("INSERT INTO `".$tbl['getmoving_user_location']."` (userID, locationID, start, stop, registered) VALUES (:uid, :lid, :start, :stop, :registered)");
+            $res = $stmt->execute(array(
+                'uid' => $_SESSION['userID'],
+                'lid' => $_POST['locationID'],
+                'start' => ($start->format("Y-m-d H:i:s")),
+                'stop' => ($stop->format("Y-m-d H:i:s")),
+                'registered' => (new DateTime())->format("Y-m-d H:i:s")
+            ));
+            if($res){
+                header("Location: /" . get_pname($db, $tbl, 'map') . ".html#success");
+            }else{
+                header("Location: /" . get_pname($db, $tbl, 'map') . ".html#error");
+            }
         }
         die();
         break;
