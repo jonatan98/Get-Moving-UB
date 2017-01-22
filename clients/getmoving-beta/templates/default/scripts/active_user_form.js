@@ -46,9 +46,24 @@ function form_activeuser(markerIndex, start_time, stop_time){
     div.style.display = "block";
 }
 
-//Prompt the user with a form to verify it has left
-function form_leave(markerIndex){
-    //TODO display form
+//Prompt the user with a form to verify it has left?
+function form_leave(markerIndex, start_hour){
+    //Update data
+    var div = document.getElementById("form_timepicker");
+    div.getElementsByClassName("action")[0].value = "leave";
+    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    div.getElementsByClassName("arrival_time")[0].value = start_hour;
+    div.getElementsByTagName("form")[0].submit();
+}
+
+//Prompt the user with a form to verify it won't come?
+function form_cancel(markerIndex, start_hour){
+    //Cancel data
+    var div = document.getElementById("form_timepicker");
+    div.getElementsByClassName("action")[0].value = "cancel";
+    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
+    div.getElementsByClassName("arrival_time")[0].value = start_hour;
+    div.getElementsByTagName("form")[0].submit();
 }
 
 function pad(n){

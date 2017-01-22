@@ -33,6 +33,7 @@
         <i class="fa fa-close" onclick="hide_form_cover()"></i>
     </div>
     <form action="/%pname_handle_active_user%.html" method="POST">
+        <input type="hidden" name="action" value="0" class="action" />
         <input type="hidden" name="locationID" value="0" class="locationID" />
         <div class="time_wrapper">
             <div class="arrival_div">
@@ -67,7 +68,7 @@ setTimeout(function(){
 </script>
 <script>var static_url = '%static_url%'; var coordinates = '59.929904118285846,10.754928588867188';</script>
 <script>
-    var markers = [<!-- for %locations% -->{id: %location_id%,position: [%location_lat%, %location_lng%],type: '%location_type%',name: '%location_name%', description: '%location_description%', active_users: %location_users%, marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
+    var markers = [<!-- for %locations% -->{id: %location_id%,position: [%location_lat%, %location_lng%],type: '%location_type%',name: '%location_name%', description: '%location_description%', active_users: %location_users%, soon_active_users: %location_soon_users%, marker: null, activities: [%location_activities%], areas: [%location_areas%]}%location_separator%<!-- endfor -->];
     var user = {
         id: %user_userID%,
         name: '%user_name%',

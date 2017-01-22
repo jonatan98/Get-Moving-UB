@@ -63,60 +63,57 @@ function addMarker(markerIndex, markerData){
     });
     
     var active_users_length = markerData.active_users.length;
-    //Init activeUsers string
-    var activeUsers = active_users_length + ' aktive brukere';;
-    //Update string in accordance with grammatic rules
-    switch(active_users_length){
-        case 0:
-            activeUsers = 'Ingen aktive brukere';
-            break;
-        case 1:
-            activeUsers = '1 aktiv bruker';
-            break;
-    }
+    var soon_active_users_length = markerData.soon_active_users.length;
+    var active_user = null;
+    var soon_active_user = false;
+    var cancel_date_link = '';
     
     //Check if the user is active at the given location
     for(var z = 0; z < active_users_length; z++){
         if(markerData.active_users[z].id == user.id){
-            var active_user = markerData.active_users[z];
+            active_user = markerData.active_users[z];
+            cancel_data_link = '<a href="javascript:form_leave(' + markerIndex + ', \'' + active_user.start_time + '\')">Jeg har dratt</a>';
             break;
         }
     }
-    if(active_users_length != z){
-        //Made number reflect amount of other users
-        active_users_length--;
-        switch(active_users_length){
-            case 0:
-                activeUsers = 'Du er den eneste aktive brukeren';
+    //Get a formatted string with the nr of active users
+    var activeUsers = getActiveUsersString(active_users_length, active_user != null);
+    
+    //Get the amount of soon active users
+    var soonActiveUsers = "";
+    if(soon_active_users_length > 0){
+        //Check if the user is active at the given location
+        for(var z = 0; z < soon_active_users_length; z++){
+            if(markerData.soon_active_users[z].id == user.id){
+                active_user = markerData.soon_active_users[z];
+                soon_active_user = true;
+                cancel_data_link = '<a href="javascript:form_cancel(' + markerIndex + ', \'' + active_user.start_time + '\')">Jeg kommer ikke</a>';
                 break;
-            case 1:
-                activeUsers = 'Du, og ' + active_users_length + ' annen aktiv bruker';
-                break;
-            default:
-                activeUsers = 'Du, og ' + active_users_length + ' andre aktive brukere';
-                break;
+            }
         }
-        //Restored original number value
-        active_users_length++;
+        var soonActiveUsers = getSoonActiveUsersString(soon_active_users_length, active_user != null);
     }
     
     //Format infoWindowContent
     var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
        '<p>' + markerData.description + '</p>' +
        '<p>' + activeUsers + '</p>' +
+       '<p>' + soonActiveUsers + '</p>' +
        '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
     if(user.id != 0){
-        if(active_users_length != z){
+        if(active_user != null){
             //User is active at the current location
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
                '<p>' + markerData.description + '</p>' +
                '<p>' + activeUsers + '</p>' +
-               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')">Endre dratidspunkt</a><a href="javascript:form_leave(' + markerIndex + ')">Jeg har dratt</a></p>';
+               '<p>' + soonActiveUsers + '</p>' +
+               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')">Endre dratidspunkt</a>' + cancel_data_link + '</p>';
         }else{
             //User is not active at the current location
             infoWindowContent = '<h3>' + markerData.name + '</h3>' +
                '<p>' + markerData.description + '</p>' +
                '<p>' + activeUsers + '</p>' +
+               '<p>' + soonActiveUsers + '</p>' +
                '<p class="user-links"><a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a><a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
         }
     }
@@ -158,6 +155,38 @@ function addMarker(markerIndex, markerData){
     
     //Store marker data
     markers[markerIndex].marker = marker;
+}
+
+function getActiveUsersString(n, user_is_active){
+    if(user_is_active){
+        n--;
+        switch(n){
+            case 0: return 'Du er den eneste aktive brukeren';
+            case 1: return 'Du, og 1 annen aktiv bruker';
+            default: return 'Du, og ' + n + ' andre aktive brukere';
+        }
+    }else{
+        switch(n){
+            case 0: return 'Ingen aktive brukere';
+            case 1: return '1 aktiv bruker';
+            default: return n + ' aktive brukere';
+        }
+    }
+}
+function getSoonActiveUsersString(n, user_is_active){
+    if(user_is_active){
+        n--;
+        switch(n){
+            case 0: return 'Du kommer snart';
+            case 1: return 'Du, og 1 annen bruker kommer snart';
+            default: return 'Du, og ' + n + ' andre brukere kommer snart';
+        }
+    }else{
+        switch(n){
+            case 1: return '1 bruker kommer snart';
+            default: return n + ' brukere kommer snart';
+        }
+    }
 }
 
 /*
