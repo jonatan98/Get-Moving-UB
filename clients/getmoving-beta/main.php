@@ -49,7 +49,7 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $stmt = $db->prepare("SELECT userID AS id, start, stop FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
+            $stmt = $db->prepare("SELECT userID AS id, CONCAT(HOUR(start), ':', MINUTE(start)) AS start_time, CONCAT(HOUR(stop), ':', MINUTE(stop)) AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE NOW() BETWEEN  start AND stop AND locationID = :locationID");
             $stmt->execute(array(
                 'locationID' => $location['locationID']
             ));
