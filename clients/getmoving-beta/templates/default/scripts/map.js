@@ -7,7 +7,8 @@ function initMap() {
     var mapOptions = {
       zoom: zoom,
       center: center,
-      mapTypeId: 'hybrid'
+      mapTypeId: 'hybrid',
+      minZoom: 11
     };
     map = new google.maps.Map(document.getElementById('map'),
         mapOptions);
@@ -16,6 +17,8 @@ function initMap() {
     for(var i = 0; i < markers.length; i++){
         addMarker(i, markers[i]);
     }
+    
+    //Set max zoom level
 }
 
 /*
