@@ -267,6 +267,37 @@ switch($page['type']){
         }
         header("Location: $url");
         die("<script>window.location.href = '$url';</script>");
+    case "profile_update":
+        //Update profile data
+        if(isset($_POST['username'])){
+            $username = isset($_POST['username']) ? $_POST['username'] : "";
+            $name = isset($_POST['name']) ? $_POST['name'] : "";
+            $email = isset($_POST['email']) ? $_POST['email'] : "";
+            if($username == '' || $name == '' || $email == ''){
+                //Error
+                $_SESSION['error'] = 'Alle felter må være fylt ut';
+                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#error");
+                die("Mangler variabler");
+            }
+            //Oppdater informasjon
+            $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, name = :name, email = :email WHERE userID = :userID");
+            if($stmt->execute(array(
+                'username' => $username,
+                'name' => $name,
+                'email' => $email,
+                'userID' => $_SESSION['userID']
+            ))){
+                //Success
+                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#success");
+                die("<script>window.location.href = '/" . get_pname($db, $tbl, 'profile_update') . ".html#success';</script>");
+            }else{
+                //Fail
+                $_SESSION['error'] = 'Klarte ikke lagre informasjon';
+                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#error");
+                die("<script>window.location.href = '/" . get_pname($db, $tbl, 'profile_update') . ".html#error';</script>");
+            }
+        }
+        break;
 }
 
 //Print header
