@@ -9,7 +9,7 @@ if(isset($_GET['logout'])){
  */
 $vars['user_userID'] = 0; $vars['user_name'] = ''; $vars['user_username'] = '';
 if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
-    $stmt = $db->prepare("SELECT userID, username, name, email FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
+    $stmt = $db->prepare("SELECT userID, username, name, email, register_datetime FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
     $stmt->execute(array(
         'userID' => $_SESSION['userID']
     ));
@@ -18,6 +18,10 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
             $vars['user_'.$k] = $v;
         }
     }
+    //Format registered date
+    $e_r = explode(" ", $vars['user_register_datetime']); $e_rd = explode("-", $e_r[0]); $e_rt = explode(":", $e_r[1]);
+    $m = array('','Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember');
+    $vars['user_registered'] = "$e_rd[2]. {$m[$e_rd[1]]} $e_rd[0] $e_rt[0]:$e_rt[1]";
 }
  
 switch($page['type']){
