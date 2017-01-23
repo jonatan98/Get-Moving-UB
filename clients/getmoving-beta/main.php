@@ -279,19 +279,21 @@ switch($page['type']){
         //Update profile data
         if(isset($_POST['username'])){
             $username = isset($_POST['username']) ? $_POST['username'] : "";
-            $name = isset($_POST['name']) ? $_POST['name'] : "";
+            $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : "";
+            $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : "";
             $email = isset($_POST['email']) ? $_POST['email'] : "";
-            if($username == '' || $name == '' || $email == ''){
+            if($username == '' || $firstname == '' || $lastname == '' || $email == ''){
                 //Error
                 $_SESSION['error'] = 'Alle felter må være fylt ut';
                 header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#error");
                 die("Mangler variabler");
             }
             //Oppdater informasjon
-            $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, name = :name, email = :email WHERE userID = :userID");
+            $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, firstname = :firstname, lastname = :lastname, email = :email WHERE userID = :userID");
             if($stmt->execute(array(
                 'username' => $username,
-                'name' => $name,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
                 'email' => $email,
                 'userID' => $_SESSION['userID']
             ))){
