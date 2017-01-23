@@ -69,10 +69,11 @@ class GM_Login{
     }
     
     function login(){
+        //Check if session has been set and is valid
+        
         //Login user with username/pass or fb code
         if(isset($this->facebook_id)){
             //Facebook login
-            echo "Facebook login";
             $stmt = $this->db->prepare("SELECT userID FROM `".$this->tbl['getmoving_user']."` WHERE facebookID = :facebookID");
             $stmt->execute(array(
                 'facebookID' => $this->facebook_id
@@ -86,42 +87,106 @@ class GM_Login{
                 $this->error[] = "Didn't find user in database";
             }
         }else if(isset($_POST['username']) && isset($_POST['password'])){
-            echo "Normal login";
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            if($username === '' || $password === ''){
+                $this->error[] = "Du må fylle inn begge feltene.";
+                return false;
+            }
+            //Normal login
+            $stmt = $this->db->prepare("SELECT userID, password FROM `".$this->tbl['getmoving_user']."` WHERE username = :username AND password != ''");
+            $stmt->execute(array(
+                'username' => $username
+            ));
+            if($user = $stmt->fetch(PDO::FETCH_ASSOC)){
+                if(password_verify($password, $user['password'])){
+                    //success
+                    $_SESSION['userID'] = $this->generateSession($user['userID']);
+                    return true;
+                }
+            }
+            $this->error[] = "Feil brukernavn eller passord.";
         }
         return false;
     }
     
     function register(){
         //Register new user
+        $datetime = (new DateTime())->format('Y-m-d h:i:s');
         if(isset($this->fb_name) && isset($this->email) && isset($this->facebook_id)){
             //Facebook register
-            echo "Facebook register";
-            
-            $datetime  = date('Y-m-d h:i:s');
+            $nme = explode(" ", $this->fb_name);
+            $lastname = count($nme) > 1 ? $nme[count($nme) - 1] : '';
+            if(count($nme) > 1){ unset($nme[count($nme) - 1]); }
+            $firstname = implode(' ', $nme);
             
             $stmt = $this->db->prepare("INSERT INTO `".$this->tbl['getmoving_user']."` 
-                (facebookID, username, name, email, register_datetime)
+                (facebookID, username, password, firstname, lastname, email, register_datetime)
                 VALUES
-                (:facebookID, :username, :name, :email, :register_datetime)");
-            $ex = $stmt->execute(array(
+                (:facebookID, :username, :password, :firstname, :lastname, :email, :register_datetime)");
+            if($stmt->execute(array(
                 'facebookID' => $this->facebook_id,
                 'username' => '',
-                'name' => $this->fb_name,
+                'password' => '',
+                'firstname' => $firstname,
+                'lastname' => $lastname,
                 'email' => $this->email,
                 'register_datetime' => $datetime
-            ));
-            
-            if($ex){
+            ))){
                 //Logg inn the user
                 return $this->login();
             }else{
                 //Troubeshoot
                 $this->error[] = "Failed to save user in db";
             }
-        }else if(isset($_POST['username']) && isset($_POST['password'])){
-            echo "Normal register";
+        }else if(isset($_POST['username']) && isset($_POST['pass1'])){
+            //Verify variables
+            $username = isset($_POST['username']) ? $_POST['username'] : '';
+            $pass1 = isset($_POST['pass1']) ? $_POST['pass1'] : '';
+            $pass2 = isset($_POST['pass2']) ? $_POST['pass2'] : '';
+            $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : '';
+            $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : '';
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
+            
+            //Check if passwords match
+            if($pass1 !== $pass2){
+                $this->error[] = "Passordene må være like";
+                return false;
+            }
+            //Check if username is taken
+            
+            //Hash password
+            $options = [
+              'cost' => 11
+            ];
+            $password = password_hash($pass1, PASSWORD_BCRYPT, $options);
+            //Normal register
+            $stmt = $this->db->prepare("INSERT INTO `".$this->tbl['getmoving_user']."` 
+                (facebookID, username, password, firstname, lastname, email, register_datetime)
+                VALUES
+                (:facebookID, :username, :password, :firstname, :lastname, :email, :register_datetime)");
+            if($stmt->execute(array(
+                'facebookID' => '',
+                'username' => $username,
+                'password' => $password,
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'email' => $email,
+                'register_datetime' => $datetime
+            ))){
+                //Logg inn the user
+                return $this->login();
+            }else{
+                $this->error[] = "Failed to save user in db";
+                $this->error[] = json_encode($this->db->errorInfo());
+            }
         }
         return false;
+    }
+    
+    function generateSession($userID){
+        
+        return $userID;
     }
 }
 }

@@ -9,7 +9,7 @@ if(isset($_GET['logout'])){
  */
 $vars['user_userID'] = 0; $vars['user_name'] = ''; $vars['user_username'] = '';
 if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
-    $stmt = $db->prepare("SELECT userID, username, name, email, register_datetime FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
+    $stmt = $db->prepare("SELECT userID, username, firstname, lastname, email, register_datetime FROM `".$tbl['getmoving_user']."` WHERE userID = :userID");
     $stmt->execute(array(
         'userID' => $_SESSION['userID']
     ));
@@ -21,7 +21,7 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
     //Format registered date
     $e_r = explode(" ", $vars['user_register_datetime']); $e_rd = explode("-", $e_r[0]); $e_rt = explode(":", $e_r[1]);
     $m = array('','Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember');
-    $vars['user_registered'] = "$e_rd[2]. {$m[$e_rd[1]]} $e_rd[0] $e_rt[0]:$e_rt[1]";
+    $vars['user_registered'] = "$e_rd[2]. {$m[intval($e_rd[1])]} $e_rd[0] $e_rt[0]:$e_rt[1]";
 }
  
 switch($page['type']){
@@ -242,6 +242,9 @@ switch($page['type']){
         if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
             header("Location: /".get_pname($db, $tbl, "map").".html");
         }
+        //Display error
+        $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
+        //Display domain name for fb login
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'].'/';
         $vars['base_url'] = $protocol.$domainName;
@@ -253,16 +256,22 @@ switch($page['type']){
         if(isset($_GET['code'])){
             //Facebook login
             $success = $login->fb();
-        }else if(isset($_POST['username'])){
+        }else if(isset($_POST['username']) && !isset($_POST['pass2'])){
             //Login
-        }else if(isset($_POST['password2'])){
-            
+            $success = $login->login();
+            print_r($login->error);
+            if($success){echo "true";}else{echo "false";}
+            die();
+        }else if(isset($_POST['pass2'])){
+            //Register
+            $success = $login->register();
         }
-                
+        
         if($success){
             $url = "/".get_pname($db, $tbl, "map").".html";
         }else{
-            $url = "/".get_pname($db, $tbl, "login")."/error=".implode(",", $login->error).".html";
+            $_SESSION['error'] = implode(', ', $login->error);
+            $url = "/".get_pname($db, $tbl, "login").".html";
         }
         header("Location: $url");
         die("<script>window.location.href = '$url';</script>");

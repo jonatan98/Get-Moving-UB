@@ -1,6 +1,8 @@
 <div id="content" class="text login">
     <h1>&nbsp;</h1>
+    <h3>%error%</h3>
     <div class="fb-login">
+    <p>Logg inn / registrer med Facebook</p>
     <a 
         href="https://www.facebook.com/dialog/oauth?client_id=553540261437395&redirect_uri=%base_url%%3Fpid=%pid_handle_login%&scope=public_profile,email"
         class="fb-login-button" 
@@ -19,7 +21,7 @@
             <p>Logg inn med e-post</p>
             <form action="/?pid=%pid_handle_login%" method="post">
                 <input type="text" name="username" placeholder="Brukernavn" />
-                <input type="password" name="pass" placeholder="Passord" />
+                <input type="password" name="password" placeholder="Passord" />
                 <button>Logg inn</button>
             </form>
         </div>
@@ -27,8 +29,9 @@
             <p>Registrer med e-post</p>
             <form action="/?pid=%pid_handle_login%" method="post">
                 <input type="text" name="username" placeholder="Brukernavn" />
-                <input type="password" name="pass" placeholder="Passord" />
-                <input type="password2" name="pass" placeholder="Gjenta passord" />
+                <input type="password" name="pass1" placeholder="Passord" />
+                <input type="password" name="pass2" placeholder="Gjenta passord" />
+                <input type="email" name="email" placeholder="Epost" />
                 <input type="text" name="firstname" placeholder="Fornavn" />
                 <input type="text" name="lastname" placeholder="Etternavn" />
                 <button>Registrer</button>
