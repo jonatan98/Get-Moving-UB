@@ -55,6 +55,31 @@ h1, h2, h3{
     margin-right: 3px;
 }
 
+/* Dropdown menu */
+#head ul:hover > ul, #head ul > ul:hover{ display: block; }
+#head ul > ul {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    padding-left: 0px;
+    padding-right: 15px;
+    background-color: #ffffff;
+    top: 80px;
+    right: 10px;
+    -webkit-box-shadow: 3px 3px 3px -3px #999, 3px 3px 3px -3px #999, -3px 3px 3px -3px #999;
+    -moz-box-shadow:    3px 3px 3px -3px #999, 3px 3px 3px -3px #999, -3px 3px 3px -3px #999;
+    box-shadow:         3px 3px 3px -3px #999, 3px 3px 3px -3px #999, -3px 3px 3px -3px #999;
+}
+
+#head ul > ul li {
+    display: block;
+    padding: 0 10px;
+}
+
+#head ul > ul li  a{
+    line-height: 30px;
+}
+
 /* Sidebar */
 
 #sidebar{
@@ -319,4 +344,74 @@ h1, h2, h3{
     width: 50%;
     vertical-align: top;
     text-align: center;
+}
+
+/* My profile area */
+
+#content.profile{
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#content.profile .profile_menu{
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+}
+
+#content.profile .profile_menu ul{
+    display: block;
+    margin-top: 34px;
+}
+
+#content.profile .profile_menu ul li{
+    display: block;
+}
+
+#content.profile .profile_menu ul li a, #content.profile .profile_menu ul li > span{
+    display: block;
+    padding: 7px 10px;
+}
+
+#content.profile .profile_menu ul li a{
+    color: #000;
+    text-decoration: none;
+}
+
+#content.profile .profile_menu ul li a > i{
+    width: 25px;
+}
+
+#content.profile .profile_menu ul li a > span:hover{
+    text-decoration: underline;
+    color: #0000ff;
+}
+
+.profile .profile_content{
+    display: inline-block;
+    vertical-align: top;
+    width: 700px;
+}
+
+.profile .profile_content table{
+    
+}
+
+.profile .profile_content table tr{
+    
+}
+
+.profile .profile_content table tr td{
+    padding: 5px 0px;
+}
+
+.profile .profile_content table tr td span{
+    padding-right: 100px;
+}
+
+.profile .profile_content table tr td input{
+    border: 1px solid #a9a9a9;
+    padding: 5px;
+    border-radius: 2px;
 }
