@@ -26,9 +26,8 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
  
 switch($page['type']){
     case "map":
-        if(isset($_SESSION['error'])){
-            echo $_SESSION['error']; unset($_SESSION['error']);
-        }
+        //Display error
+        $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
         //Get all locations
         $variables['locations'] = array();
         $stmt = $db->query("SELECT locationID, lat, lng, name, description, icon_type FROM `".$tbl['getmoving_location']."`");
@@ -297,6 +296,8 @@ switch($page['type']){
                 die("<script>window.location.href = '/" . get_pname($db, $tbl, 'profile_update') . ".html#error';</script>");
             }
         }
+        //Display error
+        $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
         break;
 }
 
