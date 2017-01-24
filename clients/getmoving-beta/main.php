@@ -268,9 +268,6 @@ switch($page['type']){
         }else if(isset($_POST['username']) && !isset($_POST['pass2'])){
             //Login
             $success = $login->login();
-            print_r($login->error);
-            if($success){echo "true";}else{echo "false";}
-            die();
         }else if(isset($_POST['pass2'])){
             //Register
             $success = $login->register();
