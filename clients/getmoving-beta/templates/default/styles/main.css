@@ -277,9 +277,24 @@ h1, h2, h3{
     padding: 10px;
 }
 
-#intro_popup button{
-    padding: 5px 20px;
+#intro_popup p{
     margin-top: 20px;
+}
+
+#intro_popup a{
+    display: inline-block;
+    padding: 5px 20px;
+    margin-top: 40px;
+    background-color: #fe7979;
+    margin-right: 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 1px solid #777;
+    color: #000;
+}
+
+#intro_popup a.green{
+    background-color: #18d9f6;
 }
 
 /* General content */
