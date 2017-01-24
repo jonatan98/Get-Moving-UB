@@ -304,6 +304,11 @@ h1, h2, h3{
     width: 70%;
 }
 
+#content.smallpage{
+    width: 900px;
+    margin: 0 auto;
+}
+
 /* Login */
 
 #content.login .fb-login{
@@ -449,4 +454,26 @@ h1, h2, h3{
     border: 1px solid #a9a9a9;
     padding: 5px;
     border-radius: 2px;
+}
+
+/* Knowlegebase */
+.knowledgebase .article h2{
+    margin-top: 10px;
+}
+
+.knowledgebase .article h3{
+    margin-top: 10px;
+}
+
+.knowledgebase .article p{
+    line-height: 25px;
+    margin-top: 10px;
+}
+
+.knowledgebase .article .iconimg > *{
+    vertical-align: middle;
+}
+
+.knowledgebase .article .iconimg span{
+    margin-left: 5px;
 }
