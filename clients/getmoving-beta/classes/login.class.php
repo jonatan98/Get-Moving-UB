@@ -112,7 +112,7 @@ class GM_Login{
     
     function register(){
         //Register new user
-        $datetime = (new DateTime())->format('Y-m-d h:i:s');
+        $datetime = (new DateTime())->format('Y-m-d H:i:s');
         if(isset($this->fb_name) && isset($this->email) && isset($this->facebook_id)){
             //Facebook register
             $nme = explode(" ", $this->fb_name);
