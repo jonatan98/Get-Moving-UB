@@ -26,6 +26,11 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
  
 switch($page['type']){
     case "map":
+        //Display intro popup
+        $vars['display_intro_popup'] = isset($_COOKIE['seen_intro']) ? 'none' : 'block';
+        if(isset($_GET['hide_intro_popup'])){
+            setcookie('seen_intro', true);
+        }
         //Display error
         $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
         //Get all locations
