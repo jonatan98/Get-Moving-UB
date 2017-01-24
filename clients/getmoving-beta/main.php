@@ -276,6 +276,9 @@ switch($page['type']){
         if($success){
             $url = "/".get_pname($db, $tbl, "map").".html";
         }else{
+            print_r($login->error);
+            print_r($_POST);
+            die();
             $_SESSION['error'] = implode(', ', $login->error);
             $url = "/".get_pname($db, $tbl, "login").".html";
         }

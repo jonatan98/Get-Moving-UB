@@ -86,15 +86,15 @@ class GM_Login{
                 //Troubleshooting
                 $this->error[] = "Didn't find user in database";
             }
-        }else if(isset($_POST['username']) && isset($_POST['password'])){
+        }else if(isset($_POST['username']) && (isset($_POST['password']) || isset($_POST['pass1']))){
             $username = $_POST['username'];
-            $password = $_POST['password'];
+            $password = isset($_POST['password']) ? $_POST['password'] : $_POST['pass1'];
             if($username === '' || $password === ''){
                 $this->error[] = "Du må fylle inn begge feltene.";
                 return false;
             }
             //Normal login
-            $stmt = $this->db->prepare("SELECT userID, password FROM `".$this->tbl['getmoving_user']."` WHERE username = :username AND password != ''");
+            $stmt = $this->db->prepare("SELECT userID, password FROM `".$this->tbl['getmoving_user']."` WHERE LOWER(username) = LOWER(:username) AND password != ''");
             $stmt->execute(array(
                 'username' => $username
             ));
@@ -106,6 +106,8 @@ class GM_Login{
                 }
             }
             $this->error[] = "Feil brukernavn eller passord.";
+        }else{
+            $this->error[] = "Ukjent hva du prøver å gjøre";
         }
         return false;
     }
@@ -154,7 +156,14 @@ class GM_Login{
                 return false;
             }
             //Check if username is taken
-            
+            $stmt = $this->db->prepare("SELECT userID FROM `".$this->tbl['getmoving_user']."` WHERE LOWER(username) = LOWER(:username)");
+            $stmt->execute(array(
+                'username' => $username
+            ));
+            if($user = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $this->error[] = "Brukernavnet er allerede tatt";
+                return false;
+            }
             //Hash password
             $options = [
               'cost' => 11
