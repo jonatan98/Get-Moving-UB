@@ -193,6 +193,10 @@ h1, h2, h3{
 
 /* Map forms */
 
+.form{
+    z-index: 800;
+}
+
 #form_cover{
     position: fixed;
     height: 100%;
@@ -202,7 +206,6 @@ h1, h2, h3{
     left: 0;
     background-color: #999;
     opacity: 0.2;
-    z-index: 800;
 }
 
 #form_timepicker{
@@ -263,10 +266,20 @@ h1, h2, h3{
 }
 
 #intro_popup{
-    width: 70%;
+    width: 700px;
     position: absolute;
-    top: 200px;
-    margin-left: 15%;
+    top: 100px;
+    left: 50%;
+    margin-left: -350px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #000;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#intro_popup button{
+    padding: 5px 20px;
+    margin-top: 20px;
 }
 
 /* General content */
