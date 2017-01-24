@@ -194,7 +194,7 @@ h1, h2, h3{
 /* Map forms */
 
 .popup_form{
-    z-index: 800;
+    z-index: 900;
 }
 
 #form_cover{
@@ -206,6 +206,7 @@ h1, h2, h3{
     left: 0;
     background-color: #999;
     opacity: 0.2;
+    z-index: 800;
 }
 
 #form_timepicker{
@@ -220,7 +221,6 @@ h1, h2, h3{
     left: 50%;
     margin-top: -100px;
     margin-left: -200px;
-    z-index: 900;
 }
 
 #form_timepicker .top-right{ 
