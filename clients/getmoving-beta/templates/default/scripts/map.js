@@ -47,7 +47,8 @@ if (navigator.geolocation) {
 
 var iconBase = static_url + 'imgs/map/';
 var icons = {
-    normal: iconBase + 'pin v2.min.png'
+    normal: iconBase + 'pin v2.min.png',
+    red: iconBase + 'pin v2.red.min.png'
 };
 
 var infoWindows = [];
