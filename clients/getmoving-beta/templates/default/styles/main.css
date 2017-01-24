@@ -262,6 +262,13 @@ h1, h2, h3{
     cursor: pointer;
 }
 
+#intro_popup{
+    width: 70%;
+    position: absolute;
+    top: 200px;
+    margin-left: 15%;
+}
+
 /* General content */
 
 #content.text{
