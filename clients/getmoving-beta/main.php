@@ -70,6 +70,12 @@ switch($page['type']){
                     $soon_active_users[] = $ul;
                 }
             }
+            //Makes icon red if there are no active users
+            $icon_type = 'normal';
+            if(count($soon_active_users) === 0 && count($active_users) === 0){
+                $icon_type = 'red';
+            }
+            //Parse data as JSON
             $active_users = json_encode($active_users);
             $soon_active_users = json_encode($soon_active_users);
             
@@ -77,7 +83,7 @@ switch($page['type']){
                 'location_id' => $location['locationID'],
                 'location_lat' => $location['lat'],
                 'location_lng' => $location['lng'],
-                'location_type' => $location['icon_type'],
+                'location_type' => $icon_type,
                 'location_name' => $location['name'],
                 'location_description' => $location['description'],
                 'location_areas' => implode(', ', $areas),
