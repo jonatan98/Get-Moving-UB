@@ -71,9 +71,9 @@ switch($page['type']){
                 }
             }
             //Makes icon red if there are no active users
-            $icon_type = 'normal';
+            $icon_type = 'active';
             if(count($soon_active_users) === 0 && count($active_users) === 0){
-                $icon_type = 'red';
+                $icon_type = 'inactive';
             }
             //Parse data as JSON
             $active_users = json_encode($active_users);
