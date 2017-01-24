@@ -28,14 +28,12 @@ switch($page['type']){
     case "map":
         //Display intro popup
         $vars['display_intro_popup'] = isset($_COOKIE['seen_intro']) ? 'none' : 'block';
-        if(isset($_GET['hide_intro_popup'])){
-            setcookie('seen_intro', true);
-        }
+        setcookie('seen_intro', true);
         //Display error
         $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
         //Get all locations
         $variables['locations'] = array();
-        $stmt = $db->query("SELECT locationID, lat, lng, name, description, icon_type FROM `".$tbl['getmoving_location']."`");
+        $stmt = $db->query("SELECT locationID, lat, lng, name, description, icon_type FROM `".$tbl['getmoving_location']."` WHERE active = 1");
         $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($locations as $location){
             //Get the areas of the location
@@ -320,6 +318,48 @@ switch($page['type']){
         }
         //Display error
         $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
+        break;
+    case "profile_settings":
+        //Kick if not logged in
+        
+        $vars['checked_anonymous_active'] = 'checked="checked"';
+        $vars['checked_anonymous_chat'] = 'checked="checked"';
+        $stmt = $db->prepare("SELECT * FROM getmoving_Setting WHERE userID = :userID");
+        $stmt->execute(array(
+            'userID' => $_SESSION['userID']
+        ));
+        if($usr = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $user_is_found = true;
+            $vars['checked_anonymous_active'] = $usr['anonymous_active'] === 1 ? 'checked="checked"' : '';
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //Check if exists
+            if(isset($user_is_found)){
+                //Update
+                $stmt = $db->prepare("UPDATE getmoving_Setting SET anonymous_active = :aa, anonymous_chat = :ac WHERE userID = :userID");
+                if($stmt->execute(array(
+                    'userID' => $_SESSION['userID'],
+                    'aa' => isset($_POST['anonymous_active']) ? 1 : 0,
+                    'ac' => isset($_POST['anonymous_chat']) ? 1 : 0
+                ))){
+                    $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+                }else{
+                    $this->error = "Klarte ikke lagre";
+                }
+            }else{
+                //Create
+                $stmt = $db->prepare("INSERT INTO getmoving_Setting (userID, anonymous_active) VALUES (:userID, :aa)");
+                if($stmt->execute(array(
+                    'userID' => $_SESSION['userID'],
+                    'aa' => isset($_POST['anonymous_active']) ? 1 : 0
+                ))){
+                    $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+                }else{
+                    $this->error = "Klarte ikke lagre";
+                }
+            }
+        }
+        
         break;
 }
 
