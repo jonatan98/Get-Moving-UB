@@ -28,7 +28,7 @@ switch($page['type']){
     case "map":
         //Display intro popup
         $vars['display_intro_popup'] = isset($_COOKIE['seen_intro']) ? 'none' : 'block';
-        setcookie('seen_intro', true);
+        setcookie('seen_intro', true, time()+3600*24*30);
         //Display error
         $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
         //Get all locations
