@@ -35,7 +35,7 @@ if (navigator.geolocation) {
         zoom = 15;
         if(map){
             initMap();
-            var cityCircle = new google.maps.Circle({
+            /*var cityCircle = new google.maps.Circle({
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
@@ -44,7 +44,7 @@ if (navigator.geolocation) {
                 map: map,
                 center: center,
                 radius: 500
-              });
+            });*/
         }
     });
 } else {
