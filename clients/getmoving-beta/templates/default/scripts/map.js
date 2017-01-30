@@ -31,7 +31,14 @@ if (navigator.geolocation) {
         //position.coords.latitude
         //position.coords.longitude
         location_enabled = {lat: position.coords.latitude, lng: position.coords.longitude};
-        center = location_enabled;
+        if(map && !pointInCircle(
+            new google.maps.LatLng(location_enabled.lat, location_enabled.lng),
+            4500,
+            new google.maps.LatLng(center.lat, center.lng))){
+            
+        }else{
+            center = location_enabled;
+        }
         zoom = 15;
         if(map){
             initMap();
