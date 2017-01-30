@@ -135,6 +135,28 @@ input[type="text"], textarea, [contenteditable]
     user-select: text;
 }
 
+/* My profile area */
+
+#content.profile{
+    width: initial;
+    padding: 0 10px;
+}
+
+#content.profile .profile_menu{
+    display: block;
+    width: initial;
+    margin-bottom: 20px;
+}
+
+.profile .profile_content{
+    display: block;
+    width: initial;
+}
+
+.profile .profile_content table tr td span{
+    padding-right: 10px;
+}
+
 /* Knowlegebase */
 .knowledgebase{
     text-align: center;
