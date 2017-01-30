@@ -2,6 +2,7 @@
 var map;
 var center = {lat: Number(coordinates.split(',')[0].trim()), lng: Number(coordinates.split(',')[1].trim())};
 var zoom = 14;
+var location_enabled = false;
 
 function initMap() {
     var mapOptions = {
@@ -29,12 +30,21 @@ if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
         //position.coords.latitude
         //position.coords.longitude
-        if(map == null){
-            center = {lat: position.coords.latitude, lng: position.coords.longitude};
-            zoom = 15;
-        }else{
-            map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-            map.setZoom(15);
+        location_enabled = {lat: position.coords.latitude, lng: position.coords.longitude};
+        center = location_enabled;
+        zoom = 15;
+        if(map){
+            initMap();
+            var cityCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: center,
+                radius: 500
+              });
         }
     });
 } else {
@@ -122,18 +132,13 @@ function addMarker(markerIndex, markerData){
     
     //Only enable saying "I'm here" if you're within a given radius of the centre
     var is_here_link = '<a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a>';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-            //position.coords.latitude
-            //position.coords.longitude
-            if(!pointInCircle(
-                new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
-                500, 
-                new google.maps.LatLng(markerData.position[0], markerData.position[1]))){
-                is_here_link = '';
-                console.log("Yeah");
-            }
-        });
+    if (location_enabled !== false) {
+        if(!pointInCircle(
+            new google.maps.LatLng(location_enabled.lat, location_enabled.lng), 
+            500, 
+            new google.maps.LatLng(markerData.position[0], markerData.position[1]))){
+            is_here_link = '';
+        }
     } else {
         
     }
