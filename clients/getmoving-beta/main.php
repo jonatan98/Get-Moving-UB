@@ -58,7 +58,7 @@ switch($page['type']){
             foreach($_activities as $a){ $activities[] = $a['activityID']; }
             
             //Get all the active users
-            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND cancelled = 0 AND left_early = 0");
+            $stmt = $db->prepare("SELECT userID AS id, DATE_FORMAT(`start`,'%H:%i') AS start_time, DATE_FORMAT(`stop`,'%H:%i') AS stop_time FROM `".$tbl['getmoving_user_location']."` WHERE ((NOW() BETWEEN  start AND stop) OR (start BETWEEN NOW() AND :later_dt AND stop > NOW())) AND locationID = :locationID AND cancelled = 0 AND left_early = 0 ORDER BY `start` ASC");
             $stmt->execute(array(
                 'locationID' => $location['locationID'],
                 'later_dt' => ((new DateTime())->modify("+120 minute"))->format("Y-m-d H:i:s")

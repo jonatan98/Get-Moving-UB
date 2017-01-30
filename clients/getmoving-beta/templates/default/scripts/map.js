@@ -88,6 +88,7 @@ function addMarker(markerIndex, markerData){
     for(var i = 0; i < active_users_length; i++){
         leaves.push(markerData.active_users[i].stop_time);
     }
+    leaves.sort();
     var leave_string = '';
     if(active_users_length > 0){
         var leave_string = '(drar ' + leaves.join(', ') + ')';
@@ -113,9 +114,28 @@ function addMarker(markerIndex, markerData){
     for(var i = 0; i < soon_active_users_length; i++){
         arrives.push(markerData.soon_active_users[i].stop_time);
     }
+    arrives.sort();
     var arrive_string = '';
     if(soon_active_users_length > 0){
         var arrive_string = '(kommer ' + arrives.join(', ') + ')';
+    }
+    
+    //Only enable saying "I'm here" if you're within a given radius of the centre
+    var is_here_link = '<a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a>';
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            //position.coords.latitude
+            //position.coords.longitude
+            if(!pointInCircle(
+                new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
+                500, 
+                new google.maps.LatLng(markerData.position[0], markerData.position[1]))){
+                is_here_link = '';
+                console.log("Yeah");
+            }
+        });
+    } else {
+        
     }
     
     //Format infoWindowContent
@@ -138,7 +158,7 @@ function addMarker(markerIndex, markerData){
                '<p>' + markerData.description + '</p>' +
                '<p>' + activeUsers + ' ' + leave_string + '</p>' +
                '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
-               '<p class="user-links"><a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a><a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
+               '<p class="user-links">' + is_here_link + '<a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
         }
     }
     
@@ -226,3 +246,11 @@ document.getElementById("updateMapType").addEventListener("change", function(e){
             map.setMapTypeId(this.value);
     } 
 });
+
+/*
+ * Function to check if user is within a radius range
+*/
+function pointInCircle(point, radius, center)
+{
+    return (google.maps.geometry.spherical.computeDistanceBetween(point, center) <= radius)
+}
