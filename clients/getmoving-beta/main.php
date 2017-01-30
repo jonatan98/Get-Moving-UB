@@ -23,7 +23,7 @@ if(isset($_SESSION['userID']) && is_numeric($_SESSION['userID'])){
     $m = array('','Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember');
     $vars['user_registered'] = "$e_rd[2]. {$m[intval($e_rd[1])]} $e_rd[0] $e_rt[0]:$e_rt[1]";
 }
- 
+
 switch($page['type']){
     case "map":
         //Display intro popup
@@ -99,7 +99,7 @@ switch($page['type']){
         $variables['locations'][count($variables['locations']) - 1]['location_separator'] = '';
         //Get all areas
         $variables['areas'] = array();
-        $stmt = $db->query("SELECT areaID, name FROM `".$tbl['getmoving_area']."` ORDER BY name ASC");
+        $stmt = $db->query("SELECT areaID, name FROM `".$tbl['getmoving_area']."` WHERE `active` = 1 ORDER BY name ASC");
         $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach($areas as $area){
             $variables['areas'][] = array(

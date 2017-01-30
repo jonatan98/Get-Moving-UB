@@ -99,6 +99,11 @@ $this->tables['getmoving_area'] = array(
             'name' => 'Navn',
             'type' => 'text',
             'min_permval' => 0
+        ),
+        'active' => array(
+            'name' => 'Aktiv',
+            'type' => 'number',
+            'min_permval' => 0
         )
     )
 );
@@ -155,13 +160,15 @@ $this->pages['area'] = array(
     'icon' => 'fa-pin', //Fort-awesome icon. Leave empty if none
     'list' => array(
         'getmoving_area' => array(
-            'name'
+            'name',
+            'active'
         )
     ),
     'info' => array(
         'getmoving_area' => array(
             'areaID',
-            'name'
+            'name',
+            'active'
         ),
         'getmoving_location_area' => array(
             'locationID'
