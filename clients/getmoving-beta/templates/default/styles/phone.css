@@ -69,6 +69,11 @@
     width: initial;
 }
 
+#content.smallpage{
+    width: initial;
+    margin: 0 5px;
+}
+
 /* Login */
 
 #content.login .fb-login{
@@ -129,3 +134,35 @@ input[type="text"], textarea, [contenteditable]
     -ms-user-select: text;
     user-select: text;
 }
+
+/* Knowlegebase */
+.knowledgebase{
+    text-align: center;
+}
+.knowledgebase .article h2{
+    margin-top: 20px;
+}
+
+.knowledgebase .article .split{
+    display: flex;
+    flex-direction: column;
+}
+
+.knowledgebase .article .split > *{
+    display: block;
+}
+
+.knowledgebase .article .split img{
+    width: 80%;
+}
+
+.knowledgebase .article .split .left, .knowledgebase .article .split .right {
+    text-align: center;
+}
+.knowledgebase .article .split .percent40{ width: 100%; }
+.knowledgebase .article .split .percent50{ width: 100%; }
+.knowledgebase .article .split .percent60{ width: 100%; }
+.knowledgebase .article .split .percent40.left{ order: 2; }
+.knowledgebase .article .split .percent40.right{ order: 2; }
+.knowledgebase .article .split .percent60.left{ order: 1; }
+.knowledgebase .article .split .percent60.right{ order: 1; }

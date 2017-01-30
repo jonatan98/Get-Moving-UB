@@ -323,14 +323,14 @@ h1, h2, h3{
 #content.login .fb-login-button{
     display: inline-block;
     text-decoration: none;
-    padding: 4px;
+    padding: 12px;
     padding-right: 7px;
     margin-top: 20px;
     margin-bottom: 14px;
     background-color: #3b5998;
     border-radius: 3px;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 11px;
+    font-size: 20px;
     font-weight: bold;
     line-height: 16px;
 }
@@ -459,15 +459,16 @@ h1, h2, h3{
 /* Knowlegebase */
 .knowledgebase .article h2{
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .knowledgebase .article h3{
-    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .knowledgebase .article p{
-    line-height: 25px;
-    margin-top: 10px;
+    line-height: 35px;
+    margin-bottom: 20px;
 }
 
 .knowledgebase .article .iconimg > *{
@@ -475,5 +476,39 @@ h1, h2, h3{
 }
 
 .knowledgebase .article .iconimg span{
-    margin-left: 5px;
+    margin-left: 10px;
 }
+
+.knowledgebase .article .split{
+    display: flex;
+    flex-direction: row;
+}
+
+.knowledgebase .article .split.vertical-center{
+    align-items: center;
+    justify-content: center;
+}
+
+.knowledgebase .article .split.vertical-center p{
+    padding: 0 10px;
+}
+
+.knowledgebase .article .split > *{
+    display: inline-block; vertical-align: top;
+}
+
+.knowledgebase .article .split img{
+    width: 100%;
+}
+
+.knowledgebase .article .split .left{
+    order: 1;
+    text-align: right;
+}
+.knowledgebase .article .split .right{
+    order: 2;
+    text-align: left;
+}
+.knowledgebase .article .split .percent40{ width: 40%; }
+.knowledgebase .article .split .percent50{ width: 50%; }
+.knowledgebase .article .split .percent60{ width: 60%; }
