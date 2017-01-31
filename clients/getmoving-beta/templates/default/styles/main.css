@@ -498,16 +498,22 @@ h1, h2, h3{
 }
 
 .knowledgebase .article .split img{
-    width: 100%;
+    width: 80%;
 }
 
 .knowledgebase .article .split .left{
     order: 1;
     text-align: right;
 }
+.knowledgebase .article .split .left img{
+    float: left;
+}
 .knowledgebase .article .split .right{
     order: 2;
     text-align: left;
+}
+.knowledgebase .article .split .right img{
+    float: right;
 }
 .knowledgebase .article .split .percent40{ width: 40%; }
 .knowledgebase .article .split .percent50{ width: 50%; }

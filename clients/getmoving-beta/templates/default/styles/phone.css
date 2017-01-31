@@ -174,8 +174,9 @@ input[type="text"], textarea, [contenteditable]
     display: block;
 }
 
-.knowledgebase .article .split img{
+.knowledgebase .article .split .left img, .knowledgebase .article .split .right img{
     width: 80%;
+    float: initial;
 }
 
 .knowledgebase .article .split .left, .knowledgebase .article .split .right {
@@ -184,7 +185,5 @@ input[type="text"], textarea, [contenteditable]
 .knowledgebase .article .split .percent40{ width: 100%; }
 .knowledgebase .article .split .percent50{ width: 100%; }
 .knowledgebase .article .split .percent60{ width: 100%; }
-.knowledgebase .article .split .percent40.left{ order: 2; }
-.knowledgebase .article .split .percent40.right{ order: 2; }
-.knowledgebase .article .split .percent60.left{ order: 1; }
-.knowledgebase .article .split .percent60.right{ order: 1; }
+.knowledgebase .article .split .percent50.text{ order: 1; }
+.knowledgebase .article .split .percent50.img{ order: 2; }
