@@ -128,6 +128,35 @@ $this->tables['getmoving_activity'] = array(
     )
 );
 
+$this->tables['getmoving_user'] = array(
+    'client_specific' => false,
+    'name' => 'Brukere',
+    'tags' => array(
+        'create_permission' => 190, 'delete_permission' => 190
+    ),
+    'cols' => array(
+        'userID' => array(
+            'name' => 'Bruker ID',
+            'type' => 'permanent'
+        ),
+        'username' => array(
+            'name' => 'Brukernavn',
+            'type' => 'text',
+            'min_permval' => 0
+        ),
+        'firstname' => array(
+            'name' => 'Fornavn',
+            'type' => 'text',
+            'min_permval' => 0
+        ),
+        'lastname' => array(
+            'name' => 'Etternavn',
+            'type' => 'text',
+            'min_permval' => 0
+        )
+    )
+);
+
 /*
  * Links to ensure that the right field is used as the foreign key when 
  * tables are connected
@@ -191,6 +220,24 @@ $this->pages['activity'] = array(
         ),
         'getmoving_location_activity' => array(
             'locationID'
+        )
+    )
+);
+
+$this->pages['gm_users'] = array(
+    'name' => 'Brukere', //Name of the page in the sidemenu
+    'icon' => 'fa-users', //Fort-awesome icon. Leave empty if none
+    'list' => array(
+        'getmoving_user' => array(
+            'name' => array('definition' => 'Concat(firstname, " ", lastname)', 'name' => 'Navn'),
+        )
+    ),
+    'info' => array(
+        'getmoving_user' => array(
+            'userID',
+            'username',
+            'firstname',
+            'lastname'
         )
     )
 );
