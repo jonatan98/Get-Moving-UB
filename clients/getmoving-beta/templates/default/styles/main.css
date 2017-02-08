@@ -420,13 +420,29 @@ h1, h2, h3{
     padding: 3px 15px;
 }
 
+.profile .profile_content .success, .profile .profile_content .error{
+    padding: 5px 0;
+}
+.profile .profile_content .success{
+    color: #0f0;
+}
+.profile .profile_content .error{
+    color: #f00;
+}
+
 /* Knowlegebase */
+.knowledgebase h1{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
 .knowledgebase .article h2{
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .knowledgebase .article h3{
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
