@@ -16,9 +16,22 @@ $this->tables['getmoving_location'] = array(
             'name' => 'Sted ID',
             'type' => 'permanent'
         ),
+        'lat' => array(
+            'name' => 'lat',
+            'type' => 'number'
+        ),
+        'lng' => array(
+            'name' => 'lng',
+            'type' => 'number'
+        ),
         'name' => array(
             'name' => 'Navn',
             'type' => 'text',
+            'min_permval' => 0
+        ),
+        'description' => array(
+            'name' => 'Beskrivelse',
+            'type' => 'textarea',
             'min_permval' => 0
         ),
         'active' => array(
@@ -183,6 +196,9 @@ $this->pages['location'] = array(
     'info' => array(
         'getmoving_location' => array(
             'name',
+            'lat',
+            'lng',
+            'description',
             'active'
         )
     )
