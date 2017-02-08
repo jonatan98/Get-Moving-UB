@@ -290,8 +290,8 @@ switch($page['type']){
         //Set default vars
         $vars['success_settings'] = "";
         $vars['error_settings'] = "";
-        $vars['success_profileinfo'] = "";
-        $vars['error_profileinfo'] = "";
+        $vars['success_profileinfo'] = isset($_SESSION['success_profileinfo']) ? $_SESSION['success_profileinfo'] : ''; unset($_SESSION['success_profileinfo']);
+        $vars['error_profileinfo'] = isset($_SESSION['error_profileinfo']) ? $_SESSION['error_profileinfo'] : ''; unset($_SESSION['error_profileinfo']);
         //Fetch settings
         $vars['checked_anonymous_active'] = 'checked="checked"';
         $vars['checked_anonymous_chat'] = 'checked="checked"';
@@ -345,7 +345,8 @@ switch($page['type']){
                 $email = isset($_POST['email']) ? $_POST['email'] : "";
                 if($username == '' || $firstname == '' || $lastname == '' || $email == ''){
                     //Error
-                    $vars['error_profileinfo'] = "Alle felter må være fylt ut.";
+                    $_SESSION['error_profileinfo'] = "Alle felter må være fylt ut.";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
                 }
                 //Oppdater informasjon
                 $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, firstname = :firstname, lastname = :lastname, email = :email WHERE userID = :userID");
@@ -357,10 +358,12 @@ switch($page['type']){
                     'userID' => $_SESSION['userID']
                 ))){
                     //Success
-                    $vars['success_profileinfo'] = "Informasjonen er oppdatert!";
+                    $_SESSION['success_profileinfo'] = "Informasjonen er oppdatert!";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
                 }else{
                     //Fail
-                    $vars['error_profileinfo'] = "Informasjonen ble ikke oppdatert";
+                    $_SESSION['error_profileinfo'] = "Informasjonen ble ikke oppdatert";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
                 }
             }
         }
