@@ -276,7 +276,8 @@ switch($page['type']){
         }
         
         if($success){
-            $url = "/".get_pname($db, $tbl, "map").".html";
+            //Redirect to profile_view if user is new, and map if not
+            $url = $login->new_user ? "/".get_pname($db, $tbl, "profile_view").".html" : "/".get_pname($db, $tbl, "map").".html";
         }else{
             print_r($login->error);
             print_r($_POST);
