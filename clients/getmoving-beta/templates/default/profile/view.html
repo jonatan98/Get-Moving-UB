@@ -1,32 +1,43 @@
 <div id="content" class="profile">
-    <div class="profile_menu">
-        <ul>
-            <li><a href="/%pname_profile_view%.html"><i class="fa fa-user"></i><span>Min profil</span></a></li>
-            <li><a href="/%pname_profile_update%.html"><i class="fa fa-edit"></i><span>Endre profil</span></a></li>
-            <li><a href="/%pname_profile_settings%.html"><i class="fa fa-gear"></i><span>Innstillinger</span></a></li>
-            <li><a href="/?logout"><i class="fa fa-unlock"></i><span>Logg ut</span></a></li>
-        </ul>
-    </div><div class="profile_content">
+    <div class="profile_content">
         <h2>Min profil</h2>
-        <table>
+        <span class="error">%error_profileinfo%</span>
+        <span class="success">%success_profileinfo%</span>
+        <form action="" method="POST"><table>
             <tbody>
                 <tr>
                     <td><span>Ble medlem</span></td>
                     <td>%user_registered%</td>
                 </tr><tr>
                     <td><span>Brukernavn</span></td>
-                    <td>%user_username%</td>
+                    <td><input type="text" name="username" value="%user_username%" /></td>
                 </tr><tr>
                     <td><span>Fornavn</span></td>
-                    <td>%user_firstname%</td>
+                    <td><input type="text" name="firstname" value="%user_firstname%" /></td>
                 </tr><tr>
                     <td><span>Etternavn</span></td>
-                    <td>%user_lastname%</td>
+                    <td><input type="text" name="lastname" value="%user_lastname%" /></td>
                 </tr><tr>
                     <td><span>Epost</span></td>
-                    <td>%user_email%</td>
+                    <td><input type="text" name="email" value="%user_email%" /></td>
+                </tr><tr>
+                    <td></td>
+                    <td><button name="type" value="profile">Lagre</button></td>
                 </tr>
             </tbody>
-        </table>
+        </table></form>
+        <h2>Innstillinger</h2>
+        <span class="error">%error_settings%</span>
+        <span class="success">%success_settings%</span>
+        <form action="" method="POST"><table>
+            <tbody>
+                <tr>
+                    <td>Vis meg som anonym når jeg er aktiv et sted &nbsp; </td>
+                    <td><input type="checkbox" name="anonymous_active" %checked_anonymous_active% /></td>
+                </tr><tr>
+                    <td colspan=2><button name="type" value="settings">Oppdater</button></td>
+                </tr>
+            </tbody>
+        </table></form>
     </div>
 </div>

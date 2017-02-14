@@ -16,9 +16,22 @@ $this->tables['getmoving_location'] = array(
             'name' => 'Sted ID',
             'type' => 'permanent'
         ),
+        'lat' => array(
+            'name' => 'lat',
+            'type' => 'number'
+        ),
+        'lng' => array(
+            'name' => 'lng',
+            'type' => 'number'
+        ),
         'name' => array(
             'name' => 'Navn',
             'type' => 'text',
+            'min_permval' => 0
+        ),
+        'description' => array(
+            'name' => 'Beskrivelse',
+            'type' => 'textarea',
             'min_permval' => 0
         ),
         'active' => array(
@@ -139,6 +152,10 @@ $this->tables['getmoving_user'] = array(
             'name' => 'Bruker ID',
             'type' => 'permanent'
         ),
+        'facebookID' => array(
+            'name' => 'Facebook ID',
+            'type' => 'permanent'
+        ),
         'username' => array(
             'name' => 'Brukernavn',
             'type' => 'text',
@@ -179,6 +196,9 @@ $this->pages['location'] = array(
     'info' => array(
         'getmoving_location' => array(
             'name',
+            'lat',
+            'lng',
+            'description',
             'active'
         )
     )
@@ -235,6 +255,7 @@ $this->pages['gm_users'] = array(
     'info' => array(
         'getmoving_user' => array(
             'userID',
+            'facebookID',
             'username',
             'firstname',
             'lastname'

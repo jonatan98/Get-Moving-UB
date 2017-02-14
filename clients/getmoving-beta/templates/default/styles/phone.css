@@ -142,15 +142,8 @@ input[type="text"], textarea, [contenteditable]
     padding: 0 10px;
 }
 
-#content.profile .profile_menu{
-    display: block;
-    width: initial;
-    margin-bottom: 20px;
-}
-
-.profile .profile_content{
-    display: block;
-    width: initial;
+.profile .profile_content table{
+    width: 100%;
 }
 
 .profile .profile_content table tr td span{
@@ -186,4 +179,5 @@ input[type="text"], textarea, [contenteditable]
 .knowledgebase .article .split .percent50{ width: 100%; }
 .knowledgebase .article .split .percent60{ width: 100%; }
 .knowledgebase .article .split .percent50.text{ order: 1; }
+.knowledgebase .article .split .percent50.text p{ margin-bottom: 5px; margin-top: 15px; }
 .knowledgebase .article .split .percent50.img{ order: 2; }

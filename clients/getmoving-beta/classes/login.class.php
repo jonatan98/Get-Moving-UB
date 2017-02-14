@@ -7,6 +7,7 @@ class GM_Login{
         $this->tbl = $tbl;
         
         $this->error = array();
+        $this->new_user = false;
     }
     
     function fb(){
@@ -113,6 +114,7 @@ class GM_Login{
     }
     
     function register(){
+        $this->new_user = true;
         //Register new user
         $datetime = (new DateTime())->format('Y-m-d H:i:s');
         if(isset($this->fb_name) && isset($this->email) && isset($this->facebook_id)){

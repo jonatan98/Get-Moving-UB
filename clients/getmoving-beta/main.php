@@ -276,7 +276,8 @@ switch($page['type']){
         }
         
         if($success){
-            $url = "/".get_pname($db, $tbl, "map").".html";
+            //Redirect to profile_view if user is new, and map if not
+            $url = $login->new_user ? "/".get_pname($db, $tbl, "profile_view").".html" : "/".get_pname($db, $tbl, "map").".html";
         }else{
             print_r($login->error);
             print_r($_POST);
@@ -286,44 +287,13 @@ switch($page['type']){
         }
         header("Location: $url");
         die("<script>window.location.href = '$url';</script>");
-    case "profile_update":
-        //Update profile data
-        if(isset($_POST['username'])){
-            $username = isset($_POST['username']) ? $_POST['username'] : "";
-            $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : "";
-            $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : "";
-            $email = isset($_POST['email']) ? $_POST['email'] : "";
-            if($username == '' || $firstname == '' || $lastname == '' || $email == ''){
-                //Error
-                $_SESSION['error'] = 'Alle felter må være fylt ut';
-                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#error");
-                die("Mangler variabler");
-            }
-            //Oppdater informasjon
-            $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, firstname = :firstname, lastname = :lastname, email = :email WHERE userID = :userID");
-            if($stmt->execute(array(
-                'username' => $username,
-                'firstname' => $firstname,
-                'lastname' => $lastname,
-                'email' => $email,
-                'userID' => $_SESSION['userID']
-            ))){
-                //Success
-                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#success");
-                die("<script>window.location.href = '/" . get_pname($db, $tbl, 'profile_update') . ".html#success';</script>");
-            }else{
-                //Fail
-                $_SESSION['error'] = 'Klarte ikke lagre informasjon';
-                header("Location: /" . get_pname($db, $tbl, 'profile_update') . ".html#error");
-                die("<script>window.location.href = '/" . get_pname($db, $tbl, 'profile_update') . ".html#error';</script>");
-            }
-        }
-        //Display error
-        $vars['error'] = isset($_SESSION['error']) ? $_SESSION['error'] : ''; unset($_SESSION['error']);
-        break;
-    case "profile_settings":
-        //Kick if not logged in
-        
+    case "profile_view":
+        //Set default vars
+        $vars['success_settings'] = "";
+        $vars['error_settings'] = "";
+        $vars['success_profileinfo'] = isset($_SESSION['success_profileinfo']) ? $_SESSION['success_profileinfo'] : ''; unset($_SESSION['success_profileinfo']);
+        $vars['error_profileinfo'] = isset($_SESSION['error_profileinfo']) ? $_SESSION['error_profileinfo'] : ''; unset($_SESSION['error_profileinfo']);
+        //Fetch settings
         $vars['checked_anonymous_active'] = 'checked="checked"';
         $vars['checked_anonymous_chat'] = 'checked="checked"';
         $stmt = $db->prepare("SELECT * FROM getmoving_Setting WHERE userID = :userID");
@@ -334,34 +304,70 @@ switch($page['type']){
             $user_is_found = true;
             $vars['checked_anonymous_active'] = $usr['anonymous_active'] === 1 ? 'checked="checked"' : '';
         }
-        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-            //Check if exists
-            if(isset($user_is_found)){
-                //Update
-                $stmt = $db->prepare("UPDATE getmoving_Setting SET anonymous_active = :aa, anonymous_chat = :ac WHERE userID = :userID");
-                if($stmt->execute(array(
-                    'userID' => $_SESSION['userID'],
-                    'aa' => isset($_POST['anonymous_active']) ? 1 : 0,
-                    'ac' => isset($_POST['anonymous_chat']) ? 1 : 0
-                ))){
-                    $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+        //Check if data should be updated
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(!isset($_POST['type'])){
+                break;
+            }else if($_POST['type'] === 'settings'){
+                //Update settings
+                if(isset($user_is_found)){
+                    //Update settings row
+                    $stmt = $db->prepare("UPDATE getmoving_Setting SET anonymous_active = :aa, anonymous_chat = :ac WHERE userID = :userID");
+                    if($stmt->execute(array(
+                        'userID' => $_SESSION['userID'],
+                        'aa' => isset($_POST['anonymous_active']) ? 1 : 0,
+                        'ac' => isset($_POST['anonymous_chat']) ? 1 : 0
+                    ))){
+                        $vars['success_settings'] = "Innstillingene er oppdatert!";
+                        $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+                    }else{
+                        //Error
+                        $vars['error_settings'] = "Klarte ikke oppdatere innstillinger.";
+                    }
                 }else{
-                    $this->error = "Klarte ikke lagre";
+                    //Create settings row
+                    $stmt = $db->prepare("INSERT INTO getmoving_Setting (userID, anonymous_active) VALUES (:userID, :aa)");
+                    if($stmt->execute(array(
+                        'userID' => $_SESSION['userID'],
+                        'aa' => isset($_POST['anonymous_active']) ? 1 : 0
+                    ))){
+                        $vars['success_settings'] = "Innstillingene er oppdatert!";
+                        $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+                    }else{
+                        //Error
+                        $vars['error_settings'] = "Klarte ikke lagre innstillinger.";
+                    }
                 }
             }else{
-                //Create
-                $stmt = $db->prepare("INSERT INTO getmoving_Setting (userID, anonymous_active) VALUES (:userID, :aa)");
+                //Update profile info
+                $username = isset($_POST['username']) ? $_POST['username'] : "";
+                $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : "";
+                $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : "";
+                $email = isset($_POST['email']) ? $_POST['email'] : "";
+                if($username == '' || $firstname == '' || $lastname == '' || $email == ''){
+                    //Error
+                    $_SESSION['error_profileinfo'] = "Alle felter må være fylt ut.";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
+                }
+                //Oppdater informasjon
+                $stmt = $db->prepare("UPDATE `".$tbl['getmoving_user']."` SET username = :username, firstname = :firstname, lastname = :lastname, email = :email WHERE userID = :userID");
                 if($stmt->execute(array(
-                    'userID' => $_SESSION['userID'],
-                    'aa' => isset($_POST['anonymous_active']) ? 1 : 0
+                    'username' => $username,
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'email' => $email,
+                    'userID' => $_SESSION['userID']
                 ))){
-                    $vars['checked_anonymous_active'] = isset($_POST['anonymous_active']) ? 'checked="checked"' : '';
+                    //Success
+                    $_SESSION['success_profileinfo'] = "Informasjonen er oppdatert!";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
                 }else{
-                    $this->error = "Klarte ikke lagre";
+                    //Fail
+                    $_SESSION['error_profileinfo'] = "Informasjonen ble ikke oppdatert";
+                    header("Location: " . get_pname($db, $tbl, 'profile_view') . ".html"); die();
                 }
             }
         }
-        
         break;
 }
 
