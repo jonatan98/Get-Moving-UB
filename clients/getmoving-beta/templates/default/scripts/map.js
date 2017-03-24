@@ -31,12 +31,10 @@ if (navigator.geolocation) {
         //position.coords.latitude
         //position.coords.longitude
         location_enabled = {lat: position.coords.latitude, lng: position.coords.longitude};
-        if(map && !pointInCircle(
+        if(!(map && !pointInCircle(
             new google.maps.LatLng(location_enabled.lat, location_enabled.lng),
             4500,
-            new google.maps.LatLng(center.lat, center.lng))){
-            
-        }else{
+            new google.maps.LatLng(center.lat, center.lng)))){
             center = location_enabled;
         }
         zoom = 15;
@@ -90,87 +88,102 @@ function addMarker(markerIndex, markerData){
     var cancel_date_link = '';
     
     //Check if the user is active at the given location
-    for(var z = 0; z < active_users_length; z++){
-        if(markerData.active_users[z].id == user.id){
-            active_user = markerData.active_users[z];
-            cancel_data_link = '<a href="javascript:form_leave(' + markerIndex + ', \'' + active_user.start_time + '\')">Jeg har dratt</a>';
+    var i = 0;
+    for(i = 0; i < active_users_length; i++){
+        if(markerData.active_users[i].id === user.id){
+            active_user = markerData.active_users[i];
+            cancel_data_link = '<a href="javascript:form_cancel(' + markerIndex + ', \'' + active_user.start_time + '\', "left")">Jeg har dratt</a>';
             break;
         }
     }
     //Get a formatted string with the nr of active users
-    var activeUsers = getActiveUsersString(active_users_length, active_user != null);
+    var activeUsers = getActiveUsersString(active_users_length, active_user !== null);
     
     //Fetch all the times the users are leaving
     var leaves = [];
-    for(var i = 0; i < active_users_length; i++){
+    for(i = 0; i < active_users_length; i++){
         leaves.push(markerData.active_users[i].stop_time);
     }
     leaves.sort();
     var leave_string = '';
     if(active_users_length > 0){
-        var leave_string = '(drar ' + leaves.join(', ') + ')';
+        leave_string = '(drar ' + leaves.join(', ') + ')';
     }
     
     //Get the amount of soon active users
     var soonActiveUsers = "";
     if(soon_active_users_length > 0){
         //Check if the user is active at the given location
-        for(var z = 0; z < soon_active_users_length; z++){
-            if(markerData.soon_active_users[z].id == user.id){
-                active_user = markerData.soon_active_users[z];
+        for(i = 0; i < soon_active_users_length; i++){
+            if(markerData.soon_active_users[i].id === user.id){
+                active_user = markerData.soon_active_users[i];
                 soon_active_user = true;
-                cancel_data_link = '<a href="javascript:form_cancel(' + markerIndex + ', \'' + active_user.start_time + '\')">Jeg kommer ikke</a>';
+                cancel_data_link = '<a href="javascript:form_cancel(' + markerIndex + ', \'' + active_user.start_time + '\', "cancel")">Jeg kommer ikke</a>';
                 break;
             }
         }
-        var soonActiveUsers = getSoonActiveUsersString(soon_active_users_length, active_user != null);
+        soonActiveUsers = getSoonActiveUsersString(soon_active_users_length, active_user !== null);
     }
     
     //Fetch all the times the users are arriving
     var arrives = [];
-    for(var i = 0; i < soon_active_users_length; i++){
+    for(i = 0; i < soon_active_users_length; i++){
         arrives.push(markerData.soon_active_users[i].stop_time);
     }
     arrives.sort();
     var arrive_string = '';
     if(soon_active_users_length > 0){
-        var arrive_string = '(kommer ' + arrives.join(', ') + ')';
+        arrive_string = '(kommer ' + arrives.join(', ') + ')';
     }
     
     //Only enable saying "I'm here" if you're within a given radius of the centre
     var is_here_link = '<a href="javascript:form_newuser(' + markerIndex + ', true)">Jeg er her</a>';
-    if (location_enabled !== false) {
+    if(location_enabled !== false){
         if(!pointInCircle(
             new google.maps.LatLng(location_enabled.lat, location_enabled.lng), 
             500, 
             new google.maps.LatLng(markerData.position[0], markerData.position[1]))){
             is_here_link = '';
         }
-    } else {
-        
     }
     
     //Format infoWindowContent
-    var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
-       '<p>' + markerData.description + '</p>' +
-       '<p>' + activeUsers + ' ' + leave_string + '</p>' +
-       '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
-       '<p>Logg inn for å se hvem de er eller <br>si at du er her.</p>';
-    if(user.id != 0){
-        if(active_user != null){
+    var infoWindowContent = generateInfoWindowContent(
+        markerData,
+        [
+            'Logg inn for å se hvem de er eller <br>si at du er her.'
+        ]
+    );
+    if(user.id !== 0){
+        if(active_user !== null){
             //User is active at the current location
-            infoWindowContent = '<h3>' + markerData.name + '</h3>' +
-               '<p>' + markerData.description + '</p>' +
-               '<p>' + activeUsers + ' ' + leave_string + '</p>' +
-               '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
-               '<p class="user-links"><a href="javascript:form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')">Endre dratidspunkt</a>' + cancel_data_link + '</p>';
+            var infoWindowContent = generateInfoWindowContent(
+                markerData,
+                [
+                    '<p class="user-links"><a href="javascript:' + 
+                    'form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')' + 
+                    '">Endre dratidspunkt</a>' + cancel_data_link + '</p>'
+                ]
+            );
         }else{
             //User is not active at the current location
-            infoWindowContent = '<h3>' + markerData.name + '</h3>' +
-               '<p>' + markerData.description + '</p>' +
-               '<p>' + activeUsers + ' ' + leave_string + '</p>' +
-               '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>' +
-               '<p class="user-links">' + is_here_link + '<a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
+            var infoWindowContent = generateInfoWindowContent(
+                markerData,
+                [
+                    '<p class="user-links">' + is_here_link + 
+                    '<a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>'
+                ]
+            );
+        }
+    }
+    
+    function generateInfoWindowContent(markerData, extraLines){
+        var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+           '<p>' + markerData.description + '</p>' +
+           '<p>' + activeUsers + ' ' + leave_string + '</p>' +
+           '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>';
+        for(var i = 0; i < extraLines.length; i++){
+            infoWindowContent += '<p>' + extraLines[i] + '</p>';
         }
     }
     

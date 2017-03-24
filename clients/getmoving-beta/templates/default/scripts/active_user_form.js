@@ -21,17 +21,21 @@ function form_newuser(markerIndex, ishere){
     
     var now = new Date();
     if(!ishere){
-        div.getElementsByClassName("arrival_time")[0].value = pad(now.getHours()) + ":" + pad(now.getMinutes());
+        updateSelectTime('arrival_time', now);
     }
     var sooner = new Date(now.setHours((now).getHours()+2));
-    div.getElementsByClassName("leave_time")[0].value = pad(sooner.getHours()) + ":" + pad(sooner.getMinutes());
+    updateSelectTime('leave_time', sooner);
     
     div.style.display = "block";
 }
 
+function updateSelectTime(className, time){
+    div.getElementsByClassName(className)[0].value = pad(time.getHours()) + ":" + pad(time.getMinutes());
+}
+
 //Prompt the user with a form requesting new data for arrival and leaving
 function form_activeuser(markerIndex, start_time, stop_time){
-    //TODO display form
+    //Display form
     hide_popups();
     document.getElementById("form_cover").style.display = "block";
     var div = document.getElementById("form_timepicker");
@@ -48,21 +52,11 @@ function form_activeuser(markerIndex, start_time, stop_time){
     div.style.display = "block";
 }
 
-//Prompt the user with a form to verify it has left?
-function form_leave(markerIndex, start_hour){
+//Prompt the user with a form to verify it has left / not come
+function form_cancel(markerIndex, start_hour, action){
     //Update data
     var div = document.getElementById("form_timepicker");
-    div.getElementsByClassName("action")[0].value = "left";
-    div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
-    div.getElementsByClassName("arrival_time")[0].value = start_hour;
-    div.getElementsByTagName("form")[0].submit();
-}
-
-//Prompt the user with a form to verify it won't come?
-function form_cancel(markerIndex, start_hour){
-    //Cancel data
-    var div = document.getElementById("form_timepicker");
-    div.getElementsByClassName("action")[0].value = "cancel";
+    div.getElementsByClassName("action")[0].value = action;
     div.getElementsByClassName("locationID")[0].value = markers[markerIndex].id;
     div.getElementsByClassName("arrival_time")[0].value = start_hour;
     div.getElementsByTagName("form")[0].submit();
@@ -70,12 +64,13 @@ function form_cancel(markerIndex, start_hour){
 
 //Make times selected on click
 $(function(){
-    document.getElementsByClassName("arrival_time")[0].onclick = function(){
-        document.getElementById("at").checked = true;
-    };
-    document.getElementsByClassName("leave_time")[0].onclick = function(){
-        document.getElementById("lt").checked = true;
-    };
+    setActiveOnClickListener('arrival_time', 'at');
+    setActiveOnClickListener('leave_time', 'lt');
+    function setActiveOnClickListener(className, id){
+        document.getElementsByClassName(className)[0].onclick = function(){
+            document.getElementById(id).checked = true;
+        };
+    }
 });
 
 //Add leading zeros to numbers

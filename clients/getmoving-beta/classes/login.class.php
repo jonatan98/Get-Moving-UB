@@ -15,49 +15,44 @@ class GM_Login{
         $code = $_GET['code'];
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'].'/';
-        $my_url = $protocol.$domainName."?pid=".get_pid($this->db, $this->tbl, "handle_login");
+        $currentUrl = $protocol.$domainName."?pid=".get_pid($this->db, $this->tbl, "handle_login");
         
         //Redirect if the code is not sent
         if(empty($code)) {
             $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
-            $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
-            . FB_APP_ID . "&redirect_uri=" . urlencode($my_url) . "&state="
+            $dialogUrl = "https://www.facebook.com/dialog/oauth?client_id=" 
+            . FB_APP_ID . "&redirect_uri=" . urlencode($currentUrl) . "&state="
             . $_SESSION['state'];
 
-            die("<script> top.location.href='" . $dialog_url . "'</script>");
+            die("<script> top.location.href='" . $dialogUrl . "'</script>");
         }
         
         //Get user data from code
         /*if($_REQUEST['state'] == $_SESSION['state']) {*/
             //Fetch data
-            $token_url = "https://graph.facebook.com/oauth/access_token?"
-            . "client_id=" . FB_APP_ID . "&redirect_uri=" . urlencode($my_url)
+            $tokenUrl = "https://graph.facebook.com/oauth/access_token?"
+            . "client_id=" . FB_APP_ID . "&redirect_uri=" . urlencode($currentUrl)
             . "&client_secret=" . FB_APP_SECRET . "&code=" . $code . "&scope=public_profile,email";
 
-            $response = @file_get_contents($token_url);
+            $response = @file_get_contents($tokenUrl);
             $params = null;
             parse_str($response, $params);
 
-            $graph_url = "https://graph.facebook.com/me?access_token=" 
+            $graphUrl = "https://graph.facebook.com/me?access_token=" 
             . $params['access_token'];
 
-            $user = json_decode(file_get_contents($graph_url));
+            $user = json_decode(file_get_contents($graphUrl));
             
             //Store the fetched info in the database
             $this->fb_name = $user->name;
-            if(isset($user->email)){
-                $this->email = $user->email;
-            }else{
-                $this->email = '';
-            }
+            $this->email = isset($user->email) ? $user->email : '';
             $this->facebook_id = $user->id;
             
             //Sjekk om brukeren er registrert
             $stmt = $this->db->prepare("SELECT userID FROM `".$this->tbl['getmoving_user']."` WHERE facebookID = :facebookID");
-            $stmt->execute(array(
+            if($stmt->execute(array(
                 'facebookID' => $this->facebook_id
-            ));
-            if($res = $stmt->fetch(PDO::FETCH_ASSOC)){
+            ))){
                 return $this->login();
             }
             return $this->register();
@@ -81,10 +76,9 @@ class GM_Login{
                 //Make some kind of session system
                 $_SESSION['userID'] = $res['userID'];
                 return true;
-            }else{
-                //Troubleshooting
-                $this->error[] = "Didn't find user in database";
             }
+            //Troubleshooting
+            $this->error[] = "Didn't find user in database";
         }else if(isset($_POST['username']) && (isset($_POST['password']) || isset($_POST['pass1']))){
             $username = $_POST['username'];
             $password = isset($_POST['password']) ? $_POST['password'] : $_POST['pass1'];
@@ -105,8 +99,6 @@ class GM_Login{
                 }
             }
             $this->error[] = "Feil brukernavn eller passord.";
-        }else{
-            $this->error[] = "Ukjent hva du prøver å gjøre";
         }
         return false;
     }
@@ -137,10 +129,9 @@ class GM_Login{
             ))){
                 //Logg inn the user
                 return $this->login();
-            }else{
-                //Troubeshoot
-                $this->error[] = "Failed to save user in db";
             }
+            //Troubeshoot
+            $this->error[] = "Failed to save user in db";
         }else if(isset($_POST['username']) && isset($_POST['pass1'])){
             //Verify variables
             $username = isset($_POST['username']) ? $_POST['username'] : '';
@@ -157,10 +148,9 @@ class GM_Login{
             }
             //Check if username is taken
             $stmt = $this->db->prepare("SELECT userID FROM `".$this->tbl['getmoving_user']."` WHERE LOWER(username) = LOWER(:username)");
-            $stmt->execute(array(
+            if($stmt->execute(array(
                 'username' => $username
-            ));
-            if($user = $stmt->fetch(PDO::FETCH_ASSOC)){
+            ))){
                 $this->error[] = "Brukernavnet er allerede tatt";
                 return false;
             }
@@ -185,10 +175,9 @@ class GM_Login{
             ))){
                 //Logg inn the user
                 return $this->login();
-            }else{
-                $this->error[] = "Failed to save user in db";
-                $this->error[] = json_encode($this->db->errorInfo());
             }
+            $this->error[] = "Failed to save user in db";
+            $this->error[] = json_encode($this->db->errorInfo());
         }
         return false;
     }

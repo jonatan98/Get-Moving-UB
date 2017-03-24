@@ -306,7 +306,6 @@ h1, h2, h3{
 #content.login .fb-login{
     display: block;
     width: initial;
-    vertical-align: top;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 30px;
@@ -435,7 +434,7 @@ h1, h2, h3{
     margin-bottom: 20px;
 }
 
-.knowledgebase .article .iconimg > *{
+.knowledgebase .article .iconimg img, .knowledgebase .article .iconimg span {
     vertical-align: middle;
 }
 
@@ -457,7 +456,7 @@ h1, h2, h3{
     padding: 0 10px;
 }
 
-.knowledgebase .article .split > *{
+.knowledgebase .article .split div, .knowledgebase .article .split h2, .knowledgebase .article .split p{
     display: inline-block; vertical-align: top;
 }
 
