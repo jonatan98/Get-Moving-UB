@@ -8,6 +8,27 @@ h1, h2, h3{
     font-family: SofiaProBold;
 }
 
+h1{
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+h2{
+    vertical-align: top;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#sidebar h2{
+    text-align: left;
+    padding: 10px 19px;
+    line-height: 34px;
+}
+
+h3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 /* Header */
 
 #head{
@@ -27,7 +48,6 @@ h1, h2, h3{
 #head ul{
     display: inline-block;
     vertical-align: top;
-    float: right;
     padding-right: 20px;
 }
 
@@ -95,12 +115,7 @@ h1, h2, h3{
     transition: left 0.3s ease-in-out;
 }
 
-#sidebar h2{
-    text-align: left;
-    padding: 10px 19px;
-    line-height: 34px;
-}
-#sidebar h2 i{
+#sidebar i{
     float: right;
     line-height: 34px;
 }
@@ -243,9 +258,6 @@ h1, h2, h3{
     display: inline-block;
     flex-grow: 1;
 }
-#form_timepicker form > div:first-of-type{
-    /*margin-right: 30px;*/
-}
 
 #form_timepicker form button{
     display: block;
@@ -285,7 +297,7 @@ h1, h2, h3{
     color: #000;
 }
 
-#intro_popup a.green{
+#intro_popup .green{
     background-color: #18d9f6;
 }
 
@@ -414,20 +426,6 @@ h1, h2, h3{
 }
 
 /* Knowlegebase */
-.knowledgebase h1{
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-.knowledgebase .article h2{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.knowledgebase .article h3{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 .knowledgebase .article p{
     line-height: 35px;
@@ -456,7 +454,7 @@ h1, h2, h3{
     padding: 0 10px;
 }
 
-.knowledgebase .article .split div, .knowledgebase .article .split h2, .knowledgebase .article .split p{
+.knowledgebase .article .split div, .knowledgebase .article .split p{
     display: inline-block; vertical-align: top;
 }
 

@@ -99,11 +99,17 @@ function addMarker(markerIndex, markerData){
     //Get a formatted string with the nr of active users
     var activeUsers = getActiveUsersString(active_users_length, active_user !== null);
     
-    //Fetch all the times the users are leaving
-    var leaves = [];
-    for(i = 0; i < active_users_length; i++){
-        leaves.push(markerData.active_users[i].stop_time);
+    //Function to turn active_users and soon_active_users into a time-only array
+    function initiateTimeArray(users){
+        array = [];
+        for(i = 0; i < users.length; i++){
+            array.push(users[i].stop_time);
+        }
+        return array;
     }
+    
+    //Fetch all the times the users are leaving
+    var leaves = initiateTimeArray(markerData.active_users);
     leaves.sort();
     var leave_string = '';
     if(active_users_length > 0){
@@ -126,10 +132,7 @@ function addMarker(markerIndex, markerData){
     }
     
     //Fetch all the times the users are arriving
-    var arrives = [];
-    for(i = 0; i < soon_active_users_length; i++){
-        arrives.push(markerData.soon_active_users[i].stop_time);
-    }
+    var arrives = initiateTimeArray(markerData.soon_active_users);
     arrives.sort();
     var arrive_string = '';
     if(soon_active_users_length > 0){
@@ -148,42 +151,25 @@ function addMarker(markerIndex, markerData){
     }
     
     //Format infoWindowContent
-    var infoWindowContent = generateInfoWindowContent(
-        markerData,
-        [
-            'Logg inn for å se hvem de er eller <br>si at du er her.'
-        ]
-    );
-    if(user.id !== 0){
+    var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
+        '<p>' + markerData.description + '</p>' +
+        '<p>' + activeUsers + ' ' + leave_string + '</p>' +
+        '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>';
+    
+    if(user.id === 0){
+        infoWindowContent += 'Logg inn for å se hvem de er eller <br>si at du er her.'
+    }else{
         if(active_user !== null){
             //User is active at the current location
-            var infoWindowContent = generateInfoWindowContent(
-                markerData,
-                [
-                    '<p class="user-links"><a href="javascript:' + 
-                    'form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')' + 
-                    '">Endre dratidspunkt</a>' + cancel_data_link + '</p>'
-                ]
-            );
+            infoWindowContent += 
+                '<p class="user-links"><a href="javascript:' + 
+                'form_activeuser(' + markerIndex + ', \'' + active_user.start_time + '\', \'' + active_user.stop_time + '\')' + 
+                '">Endre dratidspunkt</a>' + cancel_data_link + '</p>';
         }else{
             //User is not active at the current location
-            var infoWindowContent = generateInfoWindowContent(
-                markerData,
-                [
-                    '<p class="user-links">' + is_here_link + 
-                    '<a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>'
-                ]
-            );
-        }
-    }
-    
-    function generateInfoWindowContent(markerData, extraLines){
-        var infoWindowContent = '<h3>' + markerData.name + '</h3>' +
-           '<p>' + markerData.description + '</p>' +
-           '<p>' + activeUsers + ' ' + leave_string + '</p>' +
-           '<p>' + soonActiveUsers + ' ' + arrive_string + '</p>';
-        for(var i = 0; i < extraLines.length; i++){
-            infoWindowContent += '<p>' + extraLines[i] + '</p>';
+            infoWindowContent += 
+                '<p class="user-links">' + is_here_link + 
+                '<a href="javascript:form_newuser(' + markerIndex + ', 0)">Jeg skal hit</a></p>';
         }
     }
     

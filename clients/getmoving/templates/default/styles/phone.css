@@ -38,6 +38,19 @@
         margin: 0 2%;
     }
     
+    h1{
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    
+    h2{
+        font-size: 30px;
+    }
+    
+    h3{
+        font-size: 20px;
+    }
+    
     /*
      * Menu
     */
@@ -72,11 +85,6 @@
         padding-bottom: 2em;
     }
 
-    #content .section h1{
-        font-size: 30px;
-        margin-bottom: 20px;
-    }
-
     #content .section p{
         line-height: 24px;
         margin-bottom: 15px;
@@ -94,10 +102,6 @@
     #content #slides{
         padding-top: 3em;
         padding-bottom: 3em;
-    }
-
-    #slides h2{
-        font-size: 30px;
     }
 
     #slides p{
@@ -128,13 +132,9 @@
     }
 
     /* About */
-    
-    #teamet .employee h3{
-        font-size: 20px;
-    }
 
     #teamet .employee p{
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }
 

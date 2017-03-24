@@ -2,6 +2,10 @@
     display: block;
 }
 
+h2{
+    margin-top: 20px;
+}
+
 /* Header */
 
 #head{
@@ -154,16 +158,13 @@ input[type="text"], textarea, [contenteditable]
 .knowledgebase{
     text-align: center;
 }
-.knowledgebase .article h2{
-    margin-top: 20px;
-}
 
 .knowledgebase .article .split{
     display: flex;
     flex-direction: column;
 }
 
-.knowledgebase .article .split > *{
+.knowledgebase .article .split div, .knowledgebase .article .split p{
     display: block;
 }
 
