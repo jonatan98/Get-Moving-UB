@@ -12,6 +12,7 @@
 
 !/api/
 !/clients/
+/clients/getmoving/click.log
 /clients/getmoving/addons
 /clients/getmoving-beta/addons
 
