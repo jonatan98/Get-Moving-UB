@@ -13,8 +13,6 @@ class GM_Login{
     function fb(){
         //Get info from user account and then register / login
         $code = $_GET['code'];
-        $app_id = "553540261437395";
-        $app_secret = "c1773e735cf65bcf837b0286267744bd";
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
         $domainName = $_SERVER['HTTP_HOST'].'/';
         $my_url = $protocol.$domainName."?pid=".get_pid($this->db, $this->tbl, "handle_login");
@@ -23,7 +21,7 @@ class GM_Login{
         if(empty($code)) {
             $_SESSION['state'] = md5(uniqid(rand(), TRUE)); //CSRF protection
             $dialog_url = "https://www.facebook.com/dialog/oauth?client_id=" 
-            . $app_id . "&redirect_uri=" . urlencode($my_url) . "&state="
+            . FB_APP_ID . "&redirect_uri=" . urlencode($my_url) . "&state="
             . $_SESSION['state'];
 
             die("<script> top.location.href='" . $dialog_url . "'</script>");
@@ -33,8 +31,8 @@ class GM_Login{
         /*if($_REQUEST['state'] == $_SESSION['state']) {*/
             //Fetch data
             $token_url = "https://graph.facebook.com/oauth/access_token?"
-            . "client_id=" . $app_id . "&redirect_uri=" . urlencode($my_url)
-            . "&client_secret=" . $app_secret . "&code=" . $code . "&scope=public_profile,email";
+            . "client_id=" . FB_APP_ID . "&redirect_uri=" . urlencode($my_url)
+            . "&client_secret=" . FB_APP_SECRET . "&code=" . $code . "&scope=public_profile,email";
 
             $response = @file_get_contents($token_url);
             $params = null;
